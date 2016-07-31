@@ -10,7 +10,7 @@ namespace CatService.Controllers
 	{
 		public ActionResult Index()
 		{
-			ViewBag.Title = "Home Page";
+			ViewBag.Title = "Жопа1235435";
 
 			return View();
 		}
