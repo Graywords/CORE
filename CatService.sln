@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatService", "CatService\CatService.csproj", "{D4A0A408-8E0E-4E63-B1F0-4B96209FBDA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{6E3DD4DE-21B1-48C7-8BEC-756B27C166A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatService.ApiTests", "CatService.ApiTests\CatService.ApiTests.csproj", "{11AA9257-8ABE-406A-BFAE-5D084A195070}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{D4A0A408-8E0E-4E63-B1F0-4B96209FBDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4A0A408-8E0E-4E63-B1F0-4B96209FBDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A0A408-8E0E-4E63-B1F0-4B96209FBDA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E3DD4DE-21B1-48C7-8BEC-756B27C166A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E3DD4DE-21B1-48C7-8BEC-756B27C166A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E3DD4DE-21B1-48C7-8BEC-756B27C166A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E3DD4DE-21B1-48C7-8BEC-756B27C166A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11AA9257-8ABE-406A-BFAE-5D084A195070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11AA9257-8ABE-406A-BFAE-5D084A195070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11AA9257-8ABE-406A-BFAE-5D084A195070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11AA9257-8ABE-406A-BFAE-5D084A195070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
