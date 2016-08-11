@@ -2,4 +2,7 @@
 /CatService/App_Data
 /CatService/bin
 /CatService/obj
-/.vs/CatService/v14/.suo
+/CatService.ApiTests/obj
+/CatService.ApiTests/bin
+/*.user
+/*.suo
