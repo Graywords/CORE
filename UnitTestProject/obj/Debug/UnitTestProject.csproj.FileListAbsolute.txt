@@ -1,0 +1,5 @@
+C:\MonsterCatSystem\CatService\UnitTestProject\bin\Debug\UnitTestProject.dll
+C:\MonsterCatSystem\CatService\UnitTestProject\bin\Debug\UnitTestProject.pdb
+C:\MonsterCatSystem\CatService\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\MonsterCatSystem\CatService\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\MonsterCatSystem\CatService\UnitTestProject\obj\Debug\UnitTestProject.pdb

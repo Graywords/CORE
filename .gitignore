@@ -2,3 +2,6 @@
 /CatService/App_Data
 /CatService/bin
 /CatService/obj
+/CatService.ApiTests/obj
+/CatService.ApiTests/bin
+/*.user
