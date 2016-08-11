@@ -1,5 +1,0 @@
-C:\MonsterCatSystem\CatService\CatService.ApiTests\bin\Debug\CatService.ApiTests.dll
-C:\MonsterCatSystem\CatService\CatService.ApiTests\bin\Debug\CatService.ApiTests.pdb
-C:\MonsterCatSystem\CatService\CatService.ApiTests\obj\Debug\CatService.ApiTests.csprojResolveAssemblyReference.cache
-C:\MonsterCatSystem\CatService\CatService.ApiTests\obj\Debug\CatService.ApiTests.dll
-C:\MonsterCatSystem\CatService\CatService.ApiTests\obj\Debug\CatService.ApiTests.pdb
