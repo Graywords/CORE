@@ -49,6 +49,7 @@
     <Compile Include="HttpClientWrapper\ApiResponse.cs" />
     <Compile Include="HttpClientWrapper\CatRestClient.cs" />
     <Compile Include="HttpClientWrapper\Interfaces\ICatRestClient.cs" />
+    <Compile Include="Models\CouchUuid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

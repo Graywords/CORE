@@ -1,4 +1,6 @@
-﻿using CatService.BL.HttpClientWrapper;
+﻿using CatService.BL.CouchDbProvider;
+using CatService.BL.CouchDbProvider.Interfaces;
+using CatService.BL.HttpClientWrapper;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
@@ -20,13 +22,14 @@ namespace CatService.ApiTests.Infrastructure
 		[TestCleanup]
 		public virtual void CleanUp()
 		{
-			if(Kernel != null)
+			if (Kernel != null)
 				Kernel.Dispose();
 		}
 
 		private void AddBindings()
 		{
 			Kernel.Bind<ICatRestClient>().To<CatRestClient>();
+			Kernel.Bind<ICouchDbContextService>().To<CouchDbContextService>();
 		}
 	}
 }
