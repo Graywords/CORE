@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -50,8 +53,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SampleTest.cs" />
+    <Compile Include="HttpClentWrapperTest.cs" />
+    <Compile Include="Infrastructure\BaseTestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CatService.BL\CatService.BL.csproj">
+      <Project>{29FFC8A0-4542-495F-95A5-BBF91B22EC98}</Project>
+      <Name>CatService.BL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

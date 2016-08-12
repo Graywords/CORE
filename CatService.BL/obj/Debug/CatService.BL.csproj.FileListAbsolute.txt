@@ -1,0 +1,6 @@
+C:\MonsterCatSystem\CatService\CatService.BL\bin\Debug\CatService.BL.dll
+C:\MonsterCatSystem\CatService\CatService.BL\bin\Debug\CatService.BL.pdb
+C:\MonsterCatSystem\CatService\CatService.BL\bin\Debug\Newtonsoft.Json.dll
+C:\MonsterCatSystem\CatService\CatService.BL\bin\Debug\Newtonsoft.Json.xml
+C:\MonsterCatSystem\CatService\CatService.BL\obj\Debug\CatService.BL.dll
+C:\MonsterCatSystem\CatService\CatService.BL\obj\Debug\CatService.BL.pdb
