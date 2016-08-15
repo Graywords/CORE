@@ -28,12 +28,17 @@ namespace CatService.Infrastructure
 
 		public Task UpdateAsync(ApplicationUser user)
 		{
-			throw new NotImplementedException();
+			return new Task(() => couchDbContextService.UpdateCatUser(user.Map()));
 		}
 
 		public Task DeleteAsync(ApplicationUser user)
 		{
-			throw new NotImplementedException();
+			return new Task(() =>
+			{
+				var u = couchDbContextService.FindCatUserById(user.Id);
+				if(u != null)
+					couchDbContextService.DeleteCatUser(u);
+			});
 		}
 
 		public Task<ApplicationUser> FindByIdAsync(string userId)

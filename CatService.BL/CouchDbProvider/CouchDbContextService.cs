@@ -28,6 +28,17 @@ namespace CatService.BL.CouchDbProvider
 			catRestClient.MakeApiRequest(CouchDbConstants.CatUsersDbRequest, HttpMethod.Post, catUser);
 		}
 
+		public void UpdateCatUser(CatUser catUser)
+		{
+			if (catUser == null)
+				throw new NullReferenceException("catUser not provided");
+
+			if (string.IsNullOrWhiteSpace(catUser.Revision))
+				throw new NullReferenceException("Revision should be provided for deletion of catUser");
+
+			catRestClient.MakeApiRequest(CouchDbConstants.CatUsersDbRequest + catUser.Id, HttpMethod.Put, catUser, catUser.Revision);
+		}
+
 		public CatUser FindCatUserById(string userId)
 		{
 			return catRestClient.MakeApiRequest<CatUser>(CouchDbConstants.CatUsersDbRequest + userId, HttpMethod.Get, null);
