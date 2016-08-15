@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using CatService.BL.Enums;
+using CatService.BL.Models;
 using Newtonsoft.Json;
 
 namespace CatService.BL.HttpClientWrapper
@@ -19,7 +19,7 @@ namespace CatService.BL.HttpClientWrapper
 		};
 
 		public readonly Uri RequestUri;
-		public readonly ApiRequestMethod RequestMethod;
+		public readonly HttpMethod RequestMethod;
 		public readonly string RequestContent;
 		public readonly HttpContent RequestHttpContent;
 
@@ -46,7 +46,13 @@ namespace CatService.BL.HttpClientWrapper
 				return default(T);
 
 			if (contentType.MediaType == "application/json")
-				return JsonConvert.DeserializeObject<T>(Raw, this.serializerSettings);
+			{
+				var data = JsonConvert.DeserializeObject<T>(Raw, this.serializerSettings);
+				var model = data as BaseModel;
+				if (model != null && Headers != null && Headers.ETag != null)
+					model.Revision = Headers.ETag.Tag;
+				return data;
+			}
 
 			if (contentType.MediaType == "text/plain" && typeof(string) == typeof(T))
 				return (T)Convert.ChangeType(Raw, typeof(T));
@@ -59,7 +65,7 @@ namespace CatService.BL.HttpClientWrapper
 			return Success ? null : Deserialize<ApiErrorData>();
 		}
 
-		internal ApiResponse(Uri url, ApiRequestMethod method, string content, HttpContent httpContent)
+		internal ApiResponse(Uri url, HttpMethod method, string content, HttpContent httpContent)
 		{
 			this.RequestUri = url;
 			this.RequestMethod = method;

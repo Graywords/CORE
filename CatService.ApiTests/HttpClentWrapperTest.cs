@@ -1,10 +1,10 @@
 ﻿using System.Linq;
+using System.Net.Http;
 using CatService.ApiTests.Infrastructure;
-using CatService.BL.Enums;
+using CatService.BL.Constants;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.BL.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using Ninject;
 
 namespace CatService.ApiTests
@@ -17,13 +17,10 @@ namespace CatService.ApiTests
 		{
 			var c = Kernel.Get<ICatRestClient>();
 
-			var apiResult = c.MakeApiRequest<string>("http://127.0.0.1:5984/_uuids", ApiRequestMethod.GET, null);
-
-			var uuids = JsonConvert.DeserializeObject<CouchUuid>(apiResult);
+			var apiResult = c.MakeApiRequest<CouchUuid>(CouchDbConstants.UuidsRequest, HttpMethod.Get, null);
 
 			Assert.IsNotNull(apiResult);
-			Assert.IsNotNull(uuids);
-			Assert.IsNotNull(uuids.Identifiers.Single());
+			Assert.IsNotNull(apiResult.Identifiers.Single());
 		}
 	}
 }

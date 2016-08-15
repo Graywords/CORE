@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using CatService.Models;
+using Microsoft.AspNet.Identity;
 using Ninject;
 
 namespace CatService.Infrastructure
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {
-        private IKernel kernel;
+        private readonly IKernel kernel;
         public NinjectDependencyResolver()
         {
             kernel = new StandardKernel();
@@ -24,7 +26,7 @@ namespace CatService.Infrastructure
         }
         private void AddBindings()
         {
-           // kernel.Bind<IValueCalculator>().To<LinqValueCalculator>();
+	        kernel.Bind<IUserStore<ApplicationUser>>().To<CatUserStore>();
         }
     }
 }

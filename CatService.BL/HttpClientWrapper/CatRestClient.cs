@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using CatService.BL.Enums;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using Newtonsoft.Json;
 
@@ -11,13 +11,21 @@ namespace CatService.BL.HttpClientWrapper
 {
 	public class CatRestClient : ICatRestClient
 	{
-		public T MakeApiRequest<T>(string pathAndQuery, ApiRequestMethod method, object parms)
+		public T MakeApiRequest<T>(string pathAndQuery, HttpMethod method, object parms, string revision = null)
 		{
-			ApiResponse response = MakeApiRequestAsync(pathAndQuery, method, parms).Result;
+			ApiResponse response = MakeApiRequestAsync(pathAndQuery, method, parms, null, revision).Result;
 			return response.Success ? response.Deserialize<T>() : default(T);
 		}
 
-		private async Task<ApiResponse> MakeApiRequestAsync(string pathAndQuery, ApiRequestMethod method, object parms, string serializedParams = null)
+		public ApiResponse MakeApiRequest(string pathAndQuery, HttpMethod method, object parms, string revision = null)
+		{
+			var r = MakeApiRequestAsync(pathAndQuery, method, parms, null, revision).Result;
+			if (!r.Success)
+				throw new InvalidOperationException(r.Raw);
+			return r;
+		}
+
+		private async Task<ApiResponse> MakeApiRequestAsync(string pathAndQuery, HttpMethod method, object parms, string serializedParams = null, string revision = null)
 		{
 			using (var client = new HttpClient())
 			{
@@ -25,25 +33,17 @@ namespace CatService.BL.HttpClientWrapper
 				Stopwatch w = Stopwatch.StartNew();
 				try
 				{
-					HttpResponseMessage responseMessage;
-					switch (method)
-					{
-						case ApiRequestMethod.POST:
-							responseMessage = await client.PostAsync(result.RequestUri, result.GetContent(), CancellationToken.None);
-							break;
-						case ApiRequestMethod.PUT:
-							responseMessage = await client.PutAsync(result.RequestUri, result.GetContent(), CancellationToken.None);
-							break;
-						//case ApiRequestMethod.PATCH:
-						//	responseMessage = await client.PatchAsync(result.RequestUri, result.GetContent(), CancellationToken.None);
-						//	break;
-						case ApiRequestMethod.DELETE:
-							responseMessage = await client.DeleteAsync(result.RequestUri, CancellationToken.None);
-							break;
-						default:
-							responseMessage = await client.GetAsync(result.RequestUri, CancellationToken.None);
-							break;
-					}
+					var requestMessage = new HttpRequestMessage(method, result.RequestUri);
+
+					requestMessage.Content = result.GetContent();
+
+					requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+					if(!string.IsNullOrWhiteSpace(revision))
+						requestMessage.Headers.IfMatch.Add(new EntityTagHeaderValue(revision));
+
+					HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, CancellationToken.None);
+
 					await result.SetResponseAsync(responseMessage);
 				}
 				catch (Exception ex)
@@ -55,7 +55,7 @@ namespace CatService.BL.HttpClientWrapper
 			}
 		}
 
-		private ApiResponse CreateResponse(string pathAndQuery, ApiRequestMethod method, object parms, string serializedParams = null)
+		private ApiResponse CreateResponse(string pathAndQuery, HttpMethod method, object parms, string serializedParams = null)
 		{
 			string content = null;
 			HttpContent httpContent = null;

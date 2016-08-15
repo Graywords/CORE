@@ -1,14 +1,14 @@
-﻿using CatService.BL.CouchDbProvider.Interfaces;
-using CatService.BL.Enums;
+﻿using System;
+using System.Net.Http;
+using CatService.BL.Constants;
+using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.BL.Models;
-using Newtonsoft.Json;
 
 namespace CatService.BL.CouchDbProvider
 {
 	public class CouchDbContextService : ICouchDbContextService
 	{
-		private const string ConnectionString = "http://127.0.0.1:5984/";
 		private readonly ICatRestClient catRestClient;
 
 		public CouchDbContextService(ICatRestClient catRestClient)
@@ -18,10 +18,30 @@ namespace CatService.BL.CouchDbProvider
 
 		public string GetCouchUuid()
 		{
-			var u = catRestClient.MakeApiRequest<string>(ConnectionString + "_uuids", ApiRequestMethod.GET, null);
-			//additional deserialization because of the plain text in response
-			var uuids = JsonConvert.DeserializeObject<CouchUuid>(u);
-			return uuids.Identifiers[0];
+			var u = catRestClient.MakeApiRequest<CouchUuid>(CouchDbConstants.UuidsRequest, HttpMethod.Get, null);
+			return u.Identifiers[0];
+		}
+
+		public void CreateCatUser(CatUser catUser)
+		{
+			catUser.CreatedOn = DateTime.UtcNow;
+			catRestClient.MakeApiRequest(CouchDbConstants.CatUsersDbRequest, HttpMethod.Post, catUser);
+		}
+
+		public CatUser FindCatUserById(string userId)
+		{
+			return catRestClient.MakeApiRequest<CatUser>(CouchDbConstants.CatUsersDbRequest + userId, HttpMethod.Get, null);
+		}
+
+		public void DeleteCatUser(CatUser catUser)
+		{
+			if(catUser == null)
+				throw new NullReferenceException("catUser not provided");
+
+			if(string.IsNullOrWhiteSpace(catUser.Revision))
+				throw new NullReferenceException("Revision should be provided for deletion of catUser");
+
+			catRestClient.MakeApiRequest(CouchDbConstants.CatUsersDbRequest + catUser.Id, HttpMethod.Delete, null, catUser.Revision);
 		}
 	}
 }

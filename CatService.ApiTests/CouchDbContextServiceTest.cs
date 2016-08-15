@@ -1,8 +1,10 @@
-﻿using CatService.ApiTests.Infrastructure;
+﻿using System.Net.Http;
+using CatService.ApiTests.Infrastructure;
 using CatService.BL.CouchDbProvider.Interfaces;
-using CatService.BL.Enums;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.BL.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Ninject;
 using NSubstitute;
 
@@ -27,7 +29,7 @@ namespace CatService.ApiTests
 		public void ShouldGetSubstitutedUuid()
 		{
 			var catRestSubstitute = Substitute.For<ICatRestClient>();
-			catRestSubstitute.MakeApiRequest<string>(Arg.Any<string>(), ApiRequestMethod.GET, Arg.Any<object>()).Returns(UuidJson);
+			catRestSubstitute.MakeApiRequest<CouchUuid>(Arg.Any<string>(), HttpMethod.Get, Arg.Any<object>()).Returns(JsonConvert.DeserializeObject<CouchUuid>(UuidJson));
 			Kernel.Rebind<ICatRestClient>().ToConstant(catRestSubstitute);
 			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
 
