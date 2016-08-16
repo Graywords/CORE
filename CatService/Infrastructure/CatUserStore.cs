@@ -48,12 +48,7 @@ namespace CatService.Infrastructure
 
 		public Task<ApplicationUser> FindByNameAsync(string userName)
 		{
-			return new Task<ApplicationUser>(() =>
-			{
-				var user = couchDbContextService.FindCatUserByName(userName);
-
-				return null;
-			});
+			return new Task<ApplicationUser>(() => this.couchDbContextService.FindCatUserByName(userName).Map());
 		}
 	}
 }
