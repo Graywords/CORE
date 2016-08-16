@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using CatService.BL.Constants;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.BL.Infrastructure;
 using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider
@@ -36,7 +38,12 @@ namespace CatService.BL.CouchDbProvider
 			if (string.IsNullOrWhiteSpace(catUser.Revision))
 				throw new NullReferenceException("Revision should be provided for deletion of catUser");
 
-			catRestClient.MakeApiRequest(CouchDbConstants.CatUsersDbRequest + catUser.Id, HttpMethod.Put, catUser, catUser.Revision);
+			var revision = catUser.ExpireRevision();
+
+			var r = catRestClient.MakeApiRequest<CouchDbResponseModel>(CouchDbConstants.CatUsersDbRequest + catUser.Id, HttpMethod.Put, catUser, revision);
+			if(!r.Ok)
+				throw new InvalidOperationException("Update Of Cat User Failed");
+			catUser.Revision = r.Revision;
 		}
 
 		public CatUser FindCatUserById(string userId)
@@ -53,6 +60,20 @@ namespace CatService.BL.CouchDbProvider
 				throw new NullReferenceException("Revision should be provided for deletion of catUser");
 
 			catRestClient.MakeApiRequest(CouchDbConstants.CatUsersDbRequest + catUser.Id, HttpMethod.Delete, null, catUser.Revision);
+		}
+
+		public CatUser FindCatUserByName(string userName)
+		{
+			if (string.IsNullOrWhiteSpace(userName))
+				return null;
+
+			var query = string.Format(CouchDbConstants.SearchByKeyFormat, CouchDbConstants.CatUsersViewRequest + CouchDbConstants.ByName, userName);
+
+			var results = catRestClient.MakeApiRequest<SearchResultsModel<CatUser>>(query, HttpMethod.Get, null);
+			if (results != null && results.Results.Any())
+				return results.Results[0].Value;
+
+			return null;
 		}
 	}
 }

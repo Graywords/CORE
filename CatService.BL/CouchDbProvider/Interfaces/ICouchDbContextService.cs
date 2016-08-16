@@ -10,5 +10,6 @@ namespace CatService.BL.CouchDbProvider.Interfaces
 		void UpdateCatUser(CatUser catUser);
 		CatUser FindCatUserById(string userId);
 		void DeleteCatUser(CatUser catUser);
+		CatUser FindCatUserByName(string userName);
 	}
 }

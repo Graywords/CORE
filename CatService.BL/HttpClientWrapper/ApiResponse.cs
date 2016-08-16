@@ -47,11 +47,10 @@ namespace CatService.BL.HttpClientWrapper
 
 			if (contentType.MediaType == "application/json")
 			{
-				var data = JsonConvert.DeserializeObject<T>(Raw, this.serializerSettings);
-				var model = data as BaseModel;
-				if (model != null && Headers != null && Headers.ETag != null)
-					model.Revision = Headers.ETag.Tag;
-				return data;
+				return JsonConvert.DeserializeObject<T>(Raw, this.serializerSettings);
+				//var model = data as BaseModel;
+				//if (model != null && Headers != null && Headers.ETag != null)
+				//	model.Revision = Headers.ETag.Tag;
 			}
 
 			if (contentType.MediaType == "text/plain" && typeof(string) == typeof(T))

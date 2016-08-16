@@ -54,6 +54,8 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CatUser.cs" />
     <Compile Include="Models\CouchUuid.cs" />
+    <Compile Include="Models\SearchItemModel.cs" />
+    <Compile Include="Models\SearchResultsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

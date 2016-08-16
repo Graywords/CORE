@@ -48,7 +48,12 @@ namespace CatService.Infrastructure
 
 		public Task<ApplicationUser> FindByNameAsync(string userName)
 		{
-			throw new NotImplementedException();
+			return new Task<ApplicationUser>(() =>
+			{
+				var user = couchDbContextService.FindCatUserByName(userName);
+
+				return null;
+			});
 		}
 	}
 }
