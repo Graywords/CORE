@@ -10,6 +10,7 @@ namespace CatService.BL.Constants
 		public const string Design = "_design/";
 		public const string View = "/_view/";
 		public const string ByName = "by_name";
+		public const string ByEmail = "by_email";
 		public const string SearchByKeyFormat = "{0}?key=\"{1}\"";
 
 		public static string UuidsRequest = ConnectionString + Uuids;

@@ -8,12 +8,12 @@ using Ninject;
 namespace CatService.ApiTests.CatUserTests
 {
 	[TestClass]
-	public class CatUserCreateTest : BaseTestClass
+	public class CatUserTest : BaseTestClass
 	{
 		private readonly CatUser testUser = new CatUser
 		{
 			Id = "meta_id",
-			Email = "test@email.com",
+			Email = "test_meta@email.com",
 			Name = "Meta Cat",
 			PasswordHash = "password hash"
 		};
@@ -95,6 +95,34 @@ namespace CatService.ApiTests.CatUserTests
 			Assert.AreEqual(DateTime.UtcNow.Date, catUser.CreatedOn.Date);
 
 			catUser = couchDbContextService.FindCatUserByName(testUser.Name);
+
+			Assert.IsNotNull(catUser);
+			Assert.IsNotNull(catUser.Revision);
+			Assert.AreEqual(testUser.Id, catUser.Id);
+			Assert.AreEqual(testUser.Email, catUser.Email);
+			Assert.AreEqual(testUser.Name, catUser.Name);
+			Assert.AreEqual(testUser.PasswordHash, catUser.PasswordHash);
+			Assert.AreEqual(DateTime.UtcNow.Date, catUser.CreatedOn.Date);
+		}
+
+		[TestMethod]
+		public void ShouldGetUserByEmail()
+		{
+			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
+
+			couchDbContextService.CreateCatUser(testUser);
+
+			var catUser = couchDbContextService.FindCatUserById(testUser.Id);
+
+			Assert.IsNotNull(catUser);
+			Assert.IsNotNull(catUser.Revision);
+			Assert.AreEqual(testUser.Id, catUser.Id);
+			Assert.AreEqual(testUser.Email, catUser.Email);
+			Assert.AreEqual(testUser.Name, catUser.Name);
+			Assert.AreEqual(testUser.PasswordHash, catUser.PasswordHash);
+			Assert.AreEqual(DateTime.UtcNow.Date, catUser.CreatedOn.Date);
+
+			catUser = couchDbContextService.FindCatUserByEmail(testUser.Email);
 
 			Assert.IsNotNull(catUser);
 			Assert.IsNotNull(catUser.Revision);

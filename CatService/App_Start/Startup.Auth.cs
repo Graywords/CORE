@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
@@ -13,56 +17,68 @@ using CatService.Models;
 
 namespace CatService
 {
-    public partial class Startup
-    {
-        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+	public partial class Startup
+	{
+		public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public static string PublicClientId { get; private set; }
+		private void ConfigureAuth(IAppBuilder app)
+		{
+			app.CreatePerOwinContext(ApplicationDbContext.Create);
+			app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
-        {
-            // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+			// Configure the application for OAuth based flow
+			OAuthOptions = new OAuthAuthorizationServerOptions
+			{
+				//#if DEBUG
+				AllowInsecureHttp = true,
+				//#endif
+				TokenEndpointPath = new PathString("/token"),
+				Provider = new CatOAuthAuthorizationServerProvider(),
+				AccessTokenExpireTimeSpan = TimeSpan.FromHours(6),
+			};
 
-            // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+			app.UseOAuthAuthorizationServer(OAuthOptions);
+			app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions { Provider = new OAuthBearerAuthenticationProvider() });
+		}
+	}
 
-            // Configure the application for OAuth based flow
-            PublicClientId = "self";
-            OAuthOptions = new OAuthAuthorizationServerOptions
-            {
-                TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                AllowInsecureHttp = true
-            };
+	public class CatOAuthAuthorizationServerProvider : OAuthAuthorizationServerProvider
+	{
+		public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+		{
+			if (context.ClientId == null)
+				context.Validated();
 
-            // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
+			return Task.FromResult<object>(null);
+		}
 
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+		public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+		{
+			try
+			{
+				var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+				ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+				if(user == null)
+					throw new InvalidOperationException("invalid username or password");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
-        }
-    }
+				var identity = GetTicket(user.Id, context.Options.AuthenticationType);
+
+				context.Validated(identity);
+
+			}
+			catch (InvalidOperationException ex)
+			{
+				context.SetError("invalid_grant", ex.Message);
+			}
+		}
+
+		public static ClaimsIdentity GetTicket(string userId, string authenticationType)
+		{
+			var identity = new ClaimsIdentity(authenticationType);
+			identity.AddClaim(new Claim(ClaimTypes.UserData, userId.ToString(CultureInfo.InvariantCulture)));
+			return identity;
+		}
+	}
 }

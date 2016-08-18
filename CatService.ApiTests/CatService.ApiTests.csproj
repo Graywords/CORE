@@ -61,7 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CatUserTests\CatUserCreateTest.cs" />
+    <Compile Include="CatUserTests\CatUserTest.cs" />
     <Compile Include="CouchDbContextServiceTest.cs" />
     <Compile Include="HttpClentWrapperTest.cs" />
     <Compile Include="Infrastructure\BaseTestClass.cs" />

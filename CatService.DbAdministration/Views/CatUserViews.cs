@@ -11,5 +11,11 @@ namespace CatService.DbAdministration.Views
 		{
 			Map = "function(doc) { emit(doc.Name, doc) }"
 		};
+
+		[JsonProperty(CouchDbConstants.ByEmail)]
+		public object SearchByEmailView = new ViewFunction
+		{
+			Map = "function(doc) { emit(doc.Email, doc) }"
+		};
 	}
 }
