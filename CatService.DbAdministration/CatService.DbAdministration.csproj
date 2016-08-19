@@ -65,7 +65,7 @@
     <Compile Include="Views\CatUserViews.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CatService.ApiTests\CatService.BL.Tests.csproj">
+    <ProjectReference Include="..\CatService.BL.Tests\CatService.BL.Tests.csproj">
       <Project>{11AA9257-8ABE-406A-BFAE-5D084A195070}</Project>
       <Name>CatService.BL.Tests</Name>
     </ProjectReference>
