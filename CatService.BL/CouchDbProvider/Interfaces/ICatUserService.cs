@@ -1,9 +1,8 @@
-﻿
-using CatService.BL.Models;
+﻿using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider.Interfaces
 {
-	public interface ICouchDbContextService
+	public interface ICatUserService
 	{
 		string GetCouchUuid();
 		void CreateCatUser(CatUser catUser);

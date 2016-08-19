@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatService", "CatService\CatService.csproj", "{D4A0A408-8E0E-4E63-B1F0-4B96209FBDA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatService.ApiTests", "CatService.ApiTests\CatService.ApiTests.csproj", "{11AA9257-8ABE-406A-BFAE-5D084A195070}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatService.BL.Tests", "CatService.ApiTests\CatService.BL.Tests.csproj", "{11AA9257-8ABE-406A-BFAE-5D084A195070}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatService.BL", "CatService.BL\CatService.BL.csproj", "{29FFC8A0-4542-495F-95A5-BBF91B22EC98}"
 EndProject

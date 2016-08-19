@@ -29,7 +29,7 @@ namespace CatService.ApiTests.Infrastructure
 		private void AddBindings()
 		{
 			Kernel.Bind<ICatRestClient>().To<CatRestClient>();
-			Kernel.Bind<ICouchDbContextService>().To<CouchDbContextService>();
+			Kernel.Bind<ICatUserService>().To<CatUserService>();
 		}
 	}
 }

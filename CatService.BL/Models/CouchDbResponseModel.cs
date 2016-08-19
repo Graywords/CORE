@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CatService.BL.Infrastructure
+namespace CatService.BL.Models
 {
 	public class CouchDbResponseModel
 	{

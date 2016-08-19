@@ -31,7 +31,7 @@ namespace CatService.Infrastructure
 		private void AddBindings()
 		{
 			kernel.Bind<IUserStore<ApplicationUser>>().To<CatUserStore>();
-			kernel.Bind<ICouchDbContextService>().To<CouchDbContextService>();
+			kernel.Bind<ICatUserService>().To<CatUserService>();
 			kernel.Bind<ICatRestClient>().To<CatRestClient>();
 		}
 	}

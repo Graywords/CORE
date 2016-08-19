@@ -8,11 +8,11 @@ namespace CatService.Infrastructure
 {
 	public class CatUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>
 	{
-		private readonly ICouchDbContextService couchDbContextService;
+		private readonly ICatUserService catUserService;
 
-		public CatUserStore(ICouchDbContextService couchDbContextService)
+		public CatUserStore(ICatUserService catUserService)
 		{
-			this.couchDbContextService = couchDbContextService;
+			this.catUserService = catUserService;
 		}
 
 		public void Dispose()
@@ -22,32 +22,32 @@ namespace CatService.Infrastructure
 
 		public Task CreateAsync(ApplicationUser user)
 		{
-			return Task.Factory.StartNew(() => couchDbContextService.CreateCatUser(user.Map()));
+			return Task.Factory.StartNew(() => this.catUserService.CreateCatUser(user.Map()));
 		}
 
 		public Task UpdateAsync(ApplicationUser user)
 		{
-			return Task.Factory.StartNew(() => couchDbContextService.UpdateCatUser(user.Map()));
+			return Task.Factory.StartNew(() => this.catUserService.UpdateCatUser(user.Map()));
 		}
 
 		public Task DeleteAsync(ApplicationUser user)
 		{
 			return Task.Factory.StartNew(() =>
 			{
-				var u = couchDbContextService.FindCatUserById(user.Id);
+				var u = this.catUserService.FindCatUserById(user.Id);
 				if (u != null)
-					couchDbContextService.DeleteCatUser(u);
+					this.catUserService.DeleteCatUser(u);
 			});
 		}
 
 		public Task<ApplicationUser> FindByIdAsync(string userId)
 		{
-			return Task.Factory.StartNew(() => couchDbContextService.FindCatUserById(userId).Map());
+			return Task.Factory.StartNew(() => this.catUserService.FindCatUserById(userId).Map());
 		}
 
 		public Task<ApplicationUser> FindByNameAsync(string userName)
 		{
-			return Task.Factory.StartNew(() => couchDbContextService.FindCatUserByName(userName).Map());
+			return Task.Factory.StartNew(() => this.catUserService.FindCatUserByName(userName).Map());
 		}
 
 		public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
@@ -87,7 +87,7 @@ namespace CatService.Infrastructure
 
 		public Task<ApplicationUser> FindByEmailAsync(string email)
 		{
-			return Task.Factory.StartNew(() => couchDbContextService.FindCatUserByEmail(email).Map());
+			return Task.Factory.StartNew(() => this.catUserService.FindCatUserByEmail(email).Map());
 		}
 	}
 }

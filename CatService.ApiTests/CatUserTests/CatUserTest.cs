@@ -21,7 +21,7 @@ namespace CatService.ApiTests.CatUserTests
 		[TestMethod]
 		public void ShouldCreateUser()
 		{
-			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
+			var couchDbContextService = Kernel.Get<ICatUserService>();
 
 			couchDbContextService.CreateCatUser(testUser);
 
@@ -42,7 +42,7 @@ namespace CatService.ApiTests.CatUserTests
 		[TestMethod]
 		public void ShouldUpdateUser()
 		{
-			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
+			var couchDbContextService = Kernel.Get<ICatUserService>();
 
 			couchDbContextService.CreateCatUser(testUser);
 
@@ -80,7 +80,7 @@ namespace CatService.ApiTests.CatUserTests
 		[TestMethod]
 		public void ShouldGetUserByName()
 		{
-			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
+			var couchDbContextService = Kernel.Get<ICatUserService>();
 
 			couchDbContextService.CreateCatUser(testUser);
 
@@ -108,7 +108,7 @@ namespace CatService.ApiTests.CatUserTests
 		[TestMethod]
 		public void ShouldGetUserByEmail()
 		{
-			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
+			var couchDbContextService = Kernel.Get<ICatUserService>();
 
 			couchDbContextService.CreateCatUser(testUser);
 
@@ -136,7 +136,7 @@ namespace CatService.ApiTests.CatUserTests
 		[TestCleanup]
 		public override void CleanUp()
 		{
-			var couchDbContextService = Kernel.Get<ICouchDbContextService>();
+			var couchDbContextService = Kernel.Get<ICatUserService>();
 			var catUser = couchDbContextService.FindCatUserById(testUser.Id);
 			if (catUser != null)
 				couchDbContextService.DeleteCatUser(catUser);

@@ -4,16 +4,15 @@ using System.Net.Http;
 using CatService.BL.Constants;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper.Interfaces;
-using CatService.BL.Infrastructure;
 using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider
 {
-	public class CouchDbContextService : ICouchDbContextService
+	public class CatUserService : ICatUserService
 	{
 		private readonly ICatRestClient catRestClient;
 
-		public CouchDbContextService(ICatRestClient catRestClient)
+		public CatUserService(ICatRestClient catRestClient)
 		{
 			this.catRestClient = catRestClient;
 		}
