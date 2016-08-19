@@ -1,10 +1,10 @@
 ﻿using System.Net.Http;
-using CatService.ApiTests.Infrastructure;
 using CatService.BL.Constants;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.BL.Models;
 using CatService.DbAdministration.Models;
 using CatService.DbAdministration.Views;
+using CatService.Tests.Common.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 

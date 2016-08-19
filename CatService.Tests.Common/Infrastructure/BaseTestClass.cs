@@ -2,10 +2,12 @@
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.Tests.Common.ApiClient;
+using CatService.Tests.Common.ApiClient.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 
-namespace CatService.ApiTests.Infrastructure
+namespace CatService.Tests.Common.Infrastructure
 {
 	[TestClass]
 	public abstract class BaseTestClass
@@ -15,21 +17,22 @@ namespace CatService.ApiTests.Infrastructure
 		[TestInitialize]
 		public virtual void InitContainer()
 		{
-			Kernel = new StandardKernel();
+			this.Kernel = new StandardKernel();
 			AddBindings();
 		}
 
 		[TestCleanup]
 		public virtual void CleanUp()
 		{
-			if (Kernel != null)
-				Kernel.Dispose();
+			if (this.Kernel != null)
+				this.Kernel.Dispose();
 		}
 
 		private void AddBindings()
 		{
-			Kernel.Bind<ICatRestClient>().To<CatRestClient>();
-			Kernel.Bind<ICatUserService>().To<CatUserService>();
+			this.Kernel.Bind<ICatRestClient>().To<CatRestClient>();
+			this.Kernel.Bind<ICatUserService>().To<CatUserService>();
+			this.Kernel.Bind<ICatServiceTestClient>().To<CatServiceTestClient>();
 		}
 	}
 }

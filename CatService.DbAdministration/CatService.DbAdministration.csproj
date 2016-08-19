@@ -73,6 +73,10 @@
       <Project>{29FFC8A0-4542-495F-95A5-BBF91B22EC98}</Project>
       <Name>CatService.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CatService.Tests.Common\CatService.Tests.Common.csproj">
+      <Project>{72961190-E255-48FA-A108-DC5C81C2CF5C}</Project>
+      <Name>CatService.Tests.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

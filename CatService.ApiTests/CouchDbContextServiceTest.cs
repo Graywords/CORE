@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
-using CatService.ApiTests.Infrastructure;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.BL.Models;
+using CatService.Tests.Common.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Ninject;

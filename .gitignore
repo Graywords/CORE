@@ -11,3 +11,7 @@
 /CatService.BL/obj
 /CatService.DbAdministration/bin
 /CatService.DbAdministration/obj
+/CatService.Tests.Common/bin
+/CatService.Tests.Common/obj
+/CatService.Api.Tests/bin
+/CatService.Api.Tests/obj

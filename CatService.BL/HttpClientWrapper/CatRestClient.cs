@@ -39,7 +39,7 @@ namespace CatService.BL.HttpClientWrapper
 
 					requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-					if(!string.IsNullOrWhiteSpace(revision))
+					if (!string.IsNullOrWhiteSpace(revision))
 						requestMessage.Headers.IfMatch.Add(new EntityTagHeaderValue(revision));
 
 					HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, CancellationToken.None);
