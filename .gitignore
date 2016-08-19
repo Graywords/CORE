@@ -15,3 +15,5 @@
 /CatService.Tests.Common/obj
 /CatService.Api.Tests/bin
 /CatService.Api.Tests/obj
+/CatService.BL.Tests/bin
+/CatService.BL.Tests/obj
