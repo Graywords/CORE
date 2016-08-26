@@ -29,5 +29,20 @@ namespace CatService.Tests.Common.ApiClient
 
 			return token != null;
 		}
+
+	    public bool Register(string userName, string email, string password, string passwordConfirm)
+	    {
+            var p = new Dictionary<string, string>
+            {
+                {"name", userName},
+                {"email", email},
+                {"password", password},
+                {"ConfirmPassword", passwordConfirm }
+            };
+            var content = new FormUrlEncodedContent(p);
+	        var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestRegister, HttpMethod.Post, content);
+
+            return reg != null;
+        }
 	}
 }
