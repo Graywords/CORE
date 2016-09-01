@@ -9,8 +9,10 @@ using Newtonsoft.Json;
 
 namespace CatService.BL.HttpClientWrapper
 {
-	public class CatRestClient : ICatRestClient
+	public class CatRestClient : ICatRestClient, ITokenAuth
 	{
+		private string token;
+
 		public T MakeApiRequest<T>(string pathAndQuery, HttpMethod method, object parms, string revision = null)
 		{
 			ApiResponse response = MakeApiRequestAsync(pathAndQuery, method, parms, null, revision).Result;
@@ -80,6 +82,16 @@ namespace CatService.BL.HttpClientWrapper
 			if (data == null)
 				return null;
 			return JsonConvert.SerializeObject(data);
+		}
+
+		public void AddToken(string token)
+		{
+			this.token = token;
+		}
+
+		public void RemoveToken()
+		{
+			this.token = null;
 		}
 	}
 }

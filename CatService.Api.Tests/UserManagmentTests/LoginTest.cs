@@ -1,4 +1,5 @@
-﻿using CatService.Tests.Common.ApiClient.Interfaces;
+﻿using CatService.Tests.Common.ApiClient;
+using CatService.Tests.Common.ApiClient.Interfaces;
 using Ninject;
 using CatService.Tests.Common.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

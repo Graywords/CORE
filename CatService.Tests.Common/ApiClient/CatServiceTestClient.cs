@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.Tests.Common.ApiClient.Interfaces;
@@ -10,6 +9,7 @@ namespace CatService.Tests.Common.ApiClient
 	public class CatServiceTestClient : ICatServiceTestClient
 	{
 		private readonly ICatRestClient _catRestClient;
+		private OAuthToken _oAuthToken;
 
 		public CatServiceTestClient(ICatRestClient catRestClient)
 		{
@@ -25,9 +25,13 @@ namespace CatService.Tests.Common.ApiClient
 				{"password", password}
 			};
 			var content = new FormUrlEncodedContent(p);
-			var token = _catRestClient.MakeApiRequest<OAuthToken>(Constants.Constants.RequestToken, HttpMethod.Post, content);
+			_oAuthToken = _catRestClient.MakeApiRequest<OAuthToken>(Constants.Constants.RequestToken, HttpMethod.Post, content);
 
-			return token != null;
+			var authTokenRestClient = _catRestClient as ITokenAuth;
+			if (authTokenRestClient != null)
+				authTokenRestClient.AddToken(_oAuthToken.access_token);
+
+			return _oAuthToken != null;
 		}
 	}
 }
