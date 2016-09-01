@@ -28,7 +28,6 @@ namespace CatService.Tests.Common.ApiClient
 
 			_oAuthToken = _catRestClient.MakeApiRequest<OAuthToken>(Constants.Constants.RequestToken, HttpMethod.Post, content);
 
-
 			var authTokenRestClient = _catRestClient as ITokenAuth;
 			if (authTokenRestClient != null)
 				authTokenRestClient.AddToken(_oAuthToken.access_token);
@@ -48,7 +47,7 @@ namespace CatService.Tests.Common.ApiClient
             var content = new FormUrlEncodedContent(p);
 	        var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestRegister, HttpMethod.Post, content);
 
-            return reg != null;
+            return reg != null && reg.Success;
         }
 	}
 }
