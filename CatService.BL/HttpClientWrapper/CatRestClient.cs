@@ -11,7 +11,7 @@ namespace CatService.BL.HttpClientWrapper
 {
 	public class CatRestClient : ICatRestClient, ITokenAuth
 	{
-		private string token;
+		private string _token;
 
 		public T MakeApiRequest<T>(string pathAndQuery, HttpMethod method, object parms, string revision = null)
 		{
@@ -40,6 +40,9 @@ namespace CatService.BL.HttpClientWrapper
 					requestMessage.Content = result.GetContent();
 
 					requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+					if (!string.IsNullOrWhiteSpace(this._token))
+						requestMessage.Headers.TryAddWithoutValidation("Authorization", "Bearer " + this._token);
 
 					if (!string.IsNullOrWhiteSpace(revision))
 						requestMessage.Headers.IfMatch.Add(new EntityTagHeaderValue(revision));
@@ -86,12 +89,12 @@ namespace CatService.BL.HttpClientWrapper
 
 		public void AddToken(string token)
 		{
-			this.token = token;
+			this._token = token;
 		}
 
 		public void RemoveToken()
 		{
-			this.token = null;
+			this._token = null;
 		}
 	}
 }

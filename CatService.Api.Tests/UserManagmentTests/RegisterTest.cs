@@ -6,7 +6,6 @@ using CatService.BL.CouchDbProvider.Interfaces;
 
 namespace CatService.Api.Tests.UserManagmentTests
 {
-
     [TestClass]
     public class RegisterTest : BaseTestClass
     {
