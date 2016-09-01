@@ -25,7 +25,9 @@ namespace CatService.Tests.Common.ApiClient
 				{"password", password}
 			};
 			var content = new FormUrlEncodedContent(p);
+
 			_oAuthToken = _catRestClient.MakeApiRequest<OAuthToken>(Constants.Constants.RequestToken, HttpMethod.Post, content);
+
 
 			var authTokenRestClient = _catRestClient as ITokenAuth;
 			if (authTokenRestClient != null)
@@ -33,5 +35,20 @@ namespace CatService.Tests.Common.ApiClient
 
 			return _oAuthToken != null;
 		}
+
+	    public bool Register(string userName, string email, string password, string passwordConfirm)
+	    {
+            var p = new Dictionary<string, string>
+            {
+                {"name", userName},
+                {"email", email},
+                {"password", password},
+                {"ConfirmPassword", passwordConfirm }
+            };
+            var content = new FormUrlEncodedContent(p);
+	        var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestRegister, HttpMethod.Post, content);
+
+            return reg != null;
+        }
 	}
 }
