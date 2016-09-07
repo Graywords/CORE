@@ -49,5 +49,19 @@ namespace CatService.Tests.Common.ApiClient
 
 			return reg != null && reg.Success;
 		}
+
+	    public bool ChangePassword(string oldPassword, string newPassword, string confirmPassword)
+	    {
+            var p = new Dictionary<string, string>
+            {
+                {"OldPassword", oldPassword},
+                {"NewPassword", newPassword},
+                {"ConfirmPassword", confirmPassword }
+            };
+            var content = new FormUrlEncodedContent(p);
+            var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestChangePassword, HttpMethod.Post, content);
+
+            return reg != null && reg.Success;
+        }
 	}
 }

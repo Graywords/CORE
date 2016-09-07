@@ -44,46 +44,46 @@ namespace CatService.Controllers
 		public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
 		// POST api/Account/ChangePassword
-		//[Route("ChangePassword")]
-		//public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
-		//{
-		//	if (!ModelState.IsValid)
-		//	{
-		//		return BadRequest(ModelState);
-		//	}
+		[Route("ChangePassword")]
+		public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-		//	IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
-		//		model.NewPassword);
+            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+                model.NewPassword);
 
-		//	if (!result.Succeeded)
-		//	{
-		//		return GetErrorResult(result);
-		//	}
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
 
-		//	return Ok();
-		//}
+            return Ok();
+        }
 
-		// POST api/Account/SetPassword
-		//[Route("SetPassword")]
-		//public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
-		//{
-		//	if (!ModelState.IsValid)
-		//	{
-		//		return BadRequest(ModelState);
-		//	}
+        // POST api/Account/SetPassword
+        //[Route("SetPassword")]
+        //public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
+        //{
+        //	if (!ModelState.IsValid)
+        //	{
+        //		return BadRequest(ModelState);
+        //	}
 
-		//	IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+        //	IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
-		//	if (!result.Succeeded)
-		//	{
-		//		return GetErrorResult(result);
-		//	}
+        //	if (!result.Succeeded)
+        //	{
+        //		return GetErrorResult(result);
+        //	}
 
-		//	return Ok();
-		//}
+        //	return Ok();
+        //}
 
-		// POST api/Account/Register
-		[AllowAnonymous]
+        // POST api/Account/Register
+        [AllowAnonymous]
 		[Route("Register")]
 		public async Task<IHttpActionResult> Register(RegisterBindingModel model)
 		{

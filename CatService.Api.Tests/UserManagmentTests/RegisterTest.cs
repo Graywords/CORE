@@ -10,7 +10,7 @@ namespace CatService.Api.Tests.UserManagmentTests
     public class RegisterTest : BaseTestClass
     {
 	    private const string Username = "UnitTestUser1";
-	    private const string Email = "qwert@qwe.by";
+	    private const string Email = "qwert123@qwe.by";
 	    private const string Password = "Qpass123!";
 
 	    [TestMethod]
