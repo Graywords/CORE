@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using CatService.Filters;
 
 namespace CatService
 {
@@ -8,6 +9,7 @@ namespace CatService
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
 			filters.Add(new HandleErrorAttribute());
+            filters.Add(new CatAuthorizationFilterAttribute());
 		}
 	}
 }

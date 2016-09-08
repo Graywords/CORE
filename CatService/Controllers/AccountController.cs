@@ -44,8 +44,9 @@ namespace CatService.Controllers
 		public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
 		// POST api/Account/ChangePassword
-		[Route("ChangePassword")]
-		public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+	    [Route("ChangePassword")]
+	    [Authorize]
+	    public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
 		{
 			if (!ModelState.IsValid)
 			{
