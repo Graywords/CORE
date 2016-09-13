@@ -5,6 +5,7 @@ using CatService.BL.CouchDbProvider;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.Infrastructure.Interfaces;
 using CatService.Models;
 using Microsoft.AspNet.Identity;
 using Ninject;
@@ -33,6 +34,8 @@ namespace CatService.Infrastructure
 			kernel.Bind<IUserStore<ApplicationUser>>().To<CatUserStore>();
 			kernel.Bind<ICatUserService>().To<CatUserService>();
 			kernel.Bind<ICatRestClient>().To<CatRestClient>();
-		}
+		    kernel.Bind<ICurrentUserInformationServiceSet>().To<CurrentUserInformationServiceSet>();
+            kernel.Bind<ICurrentUserInformationServiceGet>().To<CurrentUserInformationServiceGet>();
+        }
 	}
 }

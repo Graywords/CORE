@@ -12,7 +12,8 @@ namespace CatService.Mappings
 				Id = applicationUser.Id,
 				Name = applicationUser.UserName,
 				PasswordHash = applicationUser.PasswordHash,
-				Email = applicationUser.Email
+				Email = applicationUser.Email,
+                Revision = applicationUser.Revision
 			};
 		}
 
@@ -26,7 +27,8 @@ namespace CatService.Mappings
 				Id = catUser.Id,
 				UserName = catUser.Name,
 				PasswordHash = catUser.PasswordHash,
-				Email = catUser.Email
+				Email = catUser.Email,
+                Revision = catUser.Revision
 			};
 		}
 	}

@@ -8,6 +8,6 @@ namespace CatService.Infrastructure.Interfaces
 {
     interface ICurrentUserInformationServiceSet
     {
-        bool SetUserId(string userId);
+        void SetUserId(string userId);
     }
 }

@@ -223,6 +223,8 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ApiCatAuthorizationFilterAttribute.cs" />
     <Compile Include="Infrastructure\CatUserStore.cs" />
+    <Compile Include="Infrastructure\CurrentUserInformationServiceGet.cs" />
+    <Compile Include="Infrastructure\CurrentUserInformationServiceSet.cs" />
     <Compile Include="Infrastructure\Interfaces\ICurrentUserInformationServiceGet.cs" />
     <Compile Include="Infrastructure\Interfaces\ICurrentUserInformationServiceSet.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />

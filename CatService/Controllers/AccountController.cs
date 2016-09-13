@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using CatService.Infrastructure;
+using CatService.Infrastructure.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CatService.Models;
+using Ninject;
 
 namespace CatService.Controllers
 {
@@ -15,6 +18,7 @@ namespace CatService.Controllers
 	public class AccountController : ApiController
 	{
 		private ApplicationUserManager userManager;
+	    private IKernel kernel;
 
 		public AccountController()
 		{
@@ -47,13 +51,15 @@ namespace CatService.Controllers
 	    [Route("ChangePassword")]
 	    [Authorize]
 	    public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
-		{
+	    {
+	        AddBindings();
+	        var c = kernel.Get<ICurrentUserInformationServiceGet>();
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+            IdentityResult result = await UserManager.ChangePasswordAsync(c.GetUserId(), model.OldPassword,
                 model.NewPassword);
 
             if (!result.Succeeded)
@@ -115,10 +121,15 @@ namespace CatService.Controllers
 
 			base.Dispose(disposing);
 		}
+        private void AddBindings()
+        {
+            kernel = new StandardKernel();
+            this.kernel.Bind<ICurrentUserInformationServiceGet>().To<CurrentUserInformationServiceGet>();
+        }
 
-		#region Helpers
+        #region Helpers
 
-		private IHttpActionResult GetErrorResult(IdentityResult result)
+        private IHttpActionResult GetErrorResult(IdentityResult result)
 		{
 			if (result == null)
 			{

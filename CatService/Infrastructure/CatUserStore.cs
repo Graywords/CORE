@@ -27,8 +27,8 @@ namespace CatService.Infrastructure
 
 		public Task UpdateAsync(ApplicationUser user)
 		{
-			return Task.Factory.StartNew(() => this.catUserService.UpdateCatUser(user.Map()));
-		}
+		    return Task.Factory.StartNew(() => this.catUserService.UpdateCatUser(user.Map()));
+        }
 
 		public Task DeleteAsync(ApplicationUser user)
 		{
