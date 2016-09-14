@@ -21,6 +21,7 @@ namespace CatService.Api.Tests.UserManagmentTests
         public override void CleanUp()
         {
             var c = Kernel.Get<ICatServiceTestClient>();
+            c.Login("Mega Mega1111111111", "NewP@ssw0rd");
             c.ChangePassword("NewP@ssw0rd", "Everlight21!", "Everlight21!");
             base.CleanUp();
         }
