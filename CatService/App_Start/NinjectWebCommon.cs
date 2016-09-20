@@ -46,7 +46,7 @@ namespace CatService.App_Start
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                //kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
                 return kernel;
@@ -65,6 +65,11 @@ namespace CatService.App_Start
         private static void RegisterServices(IKernel kernel)
         {
 			DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-        }        
+        }
+
+	    public static void InitKernel()
+	    {
+			DependencyResolver.SetResolver(new NinjectDependencyResolver(CreateKernel()));
+	    }
     }
 }

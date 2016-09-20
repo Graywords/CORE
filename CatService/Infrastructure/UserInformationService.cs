@@ -1,33 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using CatService.Infrastructure.Interfaces;
 
 namespace CatService.Infrastructure
 {
-    public class UserInformationService
+    public class UserInformationService : ICurrentUserInformationService, ICurrentUserInformationServiceSet
     {
-        private static UserInformationService _instance;
-        private string uiid;
+	    private string currentUserId;
 
-        private UserInformationService()
-        {
-        }
+	    public string GetUserId()
+	    {
+		    return currentUserId;
+	    }
 
-        public static UserInformationService GetInstance()
-        {
-            if (_instance == null) _instance = new UserInformationService();
-            return _instance;
-        }
-
-        public void SetUiid(string uiid)
-        {
-            this.uiid = uiid;
-        }
-
-        public string GetUiid()
-        {
-            return this.uiid;
-        }
+	    public void SetUserId(string userId)
+	    {
+		    currentUserId = userId;
+	    }
     }
 }

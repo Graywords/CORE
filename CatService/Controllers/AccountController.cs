@@ -1,15 +1,12 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using CatService.Infrastructure;
 using CatService.Infrastructure.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CatService.Models;
-using Ninject;
 
 namespace CatService.Controllers
 {
@@ -17,21 +14,13 @@ namespace CatService.Controllers
 	[RoutePrefix("api/Account")]
 	public class AccountController : ApiController
 	{
+		private readonly ICurrentUserInformationService currentUserInformationService;
 		private ApplicationUserManager userManager;
-	    private IKernel kernel;
 
-		public AccountController()
+		public AccountController(ICurrentUserInformationService currentUserInformationService)
 		{
-
+			this.currentUserInformationService = currentUserInformationService;
 		}
-
-		public AccountController(ApplicationUserManager userManager, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-		{
-			UserManager = userManager;
-			AccessTokenFormat = accessTokenFormat;
-		}
-
-		private IAuthenticationManager AuthenticationManager { get { return Request.GetOwinContext().Authentication; } }
 
 		public ApplicationUserManager UserManager
 		{
@@ -52,20 +41,17 @@ namespace CatService.Controllers
 	    [Authorize]
 	    public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
 	    {
-	        AddBindings();
-	        var c = kernel.Get<ICurrentUserInformationServiceGet>();
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(c.GetUserId(), model.OldPassword,
-                model.NewPassword);
+			IdentityResult result = await UserManager.ChangePasswordAsync(currentUserInformationService.GetUserId(), model.OldPassword,model.NewPassword);
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
+			if (!result.Succeeded)
+			{
+				return GetErrorResult(result);
+			}
 
             return Ok();
         }
@@ -121,11 +107,6 @@ namespace CatService.Controllers
 
 			base.Dispose(disposing);
 		}
-        private void AddBindings()
-        {
-            kernel = new StandardKernel();
-            this.kernel.Bind<ICurrentUserInformationServiceGet>().To<CurrentUserInformationServiceGet>();
-        }
 
         #region Helpers
 
