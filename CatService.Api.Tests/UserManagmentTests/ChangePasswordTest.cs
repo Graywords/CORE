@@ -11,11 +11,14 @@ namespace CatService.Api.Tests.UserManagmentTests
         [TestMethod]
         public void ShouldChangePassword()
         {
+	        const string newPassword = "NewP@ssw0rd";
             var c = Kernel.Get<ICatServiceTestClient>();
-            var logged = c.Login("Mega Mega1111111111", "Everlight21!");
-            var changed = c.ChangePassword("Everlight21!","NewP@ssw0rd", "NewP@ssw0rd");
+            c.Login("Mega Mega1111111111", "Everlight21!");
+			var changed = c.ChangePassword("Everlight21!", newPassword, newPassword);
             Assert.IsTrue(changed);
-        }
+			var updatedLogin = c.Login("Mega Mega1111111111", newPassword);
+			Assert.IsTrue(updatedLogin);
+		}
 
         [TestCleanup]
         public override void CleanUp()
