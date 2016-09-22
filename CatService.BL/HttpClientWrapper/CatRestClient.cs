@@ -44,15 +44,7 @@ namespace CatService.BL.HttpClientWrapper
 					if (!string.IsNullOrWhiteSpace(this._token))
 						requestMessage.Headers.TryAddWithoutValidation("Authorization", "Bearer " + this._token);
 
-
-                    // обрезаем начиная с третьего символа
-                    if (!string.IsNullOrWhiteSpace(revision))
-                        revision = revision.Substring(1);
-
-                    if (!string.IsNullOrWhiteSpace(revision))
-                        revision = revision.Substring(0, revision.Length - 1);
-
-                    if (!string.IsNullOrWhiteSpace(revision))
+					if (!string.IsNullOrWhiteSpace(revision))
 						requestMessage.Headers.IfMatch.Add((new EntityTagHeaderValue(revision)));
 
 					HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, CancellationToken.None);

@@ -48,17 +48,6 @@ namespace CatService.BL.CouchDbProvider
 			catUser.Revision = r.Revision;
 		}
 
-		public void MergeCatUser(CatUser catUser)
-		{
-			if (catUser == null)
-				throw new NullReferenceException("catUser not provided");
-
-			if (string.IsNullOrWhiteSpace(catUser.Revision))
-				CreateCatUser(catUser);
-			else
-				MergeCatUser(catUser);
-		}
-
 		public CatUser FindCatUserById(string userId)
 		{
 			return catRestClient.MakeApiRequest<CatUser>(CouchDbConstants.CatUsersDbRequest + userId, HttpMethod.Get, null);
