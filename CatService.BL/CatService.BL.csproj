@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\CouchDbConstants.cs" />
+    <Compile Include="CouchDbProvider\CatDocumentService.cs" />
     <Compile Include="CouchDbProvider\CatUserService.cs" />
+    <Compile Include="CouchDbProvider\Interfaces\ICatDocumentService.cs" />
     <Compile Include="CouchDbProvider\Interfaces\ICatUserService.cs" />
     <Compile Include="HttpClientWrapper\ApiResponse.cs" />
     <Compile Include="HttpClientWrapper\CatRestClient.cs" />

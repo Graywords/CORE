@@ -13,8 +13,11 @@ namespace CatService.BL.Constants
 		public const string ByEmail = "by_email";
 		public const string SearchByKeyFormat = "{0}?key=\"{1}\"";
 
+	    public const string CatDocumentsDb = "cat_documents";
+
 		public static string UuidsRequest = ConnectionString + Uuids;
 		public static string CatUsersDbRequest = ConnectionString + CatUsersDb + "/";
 		public static string CatUsersViewRequest = CatUsersDbRequest + Design + CatUsersDb + View;
+	    public static string CatDocumentDbRequest = ConnectionString + CatDocumentsDb + "/";
 	}
 }
