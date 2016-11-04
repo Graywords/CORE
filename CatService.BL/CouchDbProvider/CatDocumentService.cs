@@ -11,7 +11,7 @@ using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider
 {
-    class CatDocumentService : ICatDocumentService
+    public class CatDocumentService : ICatDocumentService
     {
         private readonly ICatRestClient _catRestClient;
         public CatDocumentService(ICatRestClient catRestClient)
@@ -31,13 +31,13 @@ namespace CatService.BL.CouchDbProvider
 
         public CatDocument FindDocumentById(string Id)
         {
-            return _catRestClient.MakeApiRequest<CatDocument>(CouchDbConstants.CatUsersDbRequest + Id, HttpMethod.Get, null);
+            return _catRestClient.MakeApiRequest<CatDocument>(CouchDbConstants.CatDocumentDbRequest + Id, HttpMethod.Get, null);
         }
 
         public void DeleteCatDocument(CatDocument catDocument)
         {
             if (catDocument == null)
-                throw new NullReferenceException("catUser not provided");
+                throw new NullReferenceException("catDocument not provided");
 
             if (string.IsNullOrWhiteSpace(catDocument.Revision))
                 throw new NullReferenceException("Revision should be provided for deletion of catDocument");

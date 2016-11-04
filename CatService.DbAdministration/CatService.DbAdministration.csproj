@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CouchDbCatDocument.cs" />
     <Compile Include="CouchDbCatUser.cs" />
     <Compile Include="Models\CouchView.cs" />
     <Compile Include="Models\ViewFunction.cs" />

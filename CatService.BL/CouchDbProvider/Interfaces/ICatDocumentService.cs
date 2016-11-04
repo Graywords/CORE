@@ -7,7 +7,7 @@ using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider.Interfaces
 {
-    interface ICatDocumentService
+    public interface ICatDocumentService
     {
         void SaveDocument(CatDocument catDocument);
 

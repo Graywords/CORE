@@ -53,6 +53,8 @@
     <Compile Include="HttpClientWrapper\CatRestClient.cs" />
     <Compile Include="HttpClientWrapper\Interfaces\ICatRestClient.cs" />
     <Compile Include="HttpClientWrapper\Interfaces\ITokenAuth.cs" />
+    <Compile Include="Infrastructure\CatExtensionsTools\CatDocumentTools.cs" />
+    <Compile Include="Infrastructure\CatExtensionsTools\Interfaces\ICatDocumentTools.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CatDocument.cs" />
     <Compile Include="Models\CatUser.cs" />
@@ -64,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
