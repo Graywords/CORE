@@ -10,7 +10,7 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools.Interfaces
 {
     public interface ICatDocumentTools
     {
-        CatDocument PostedDocumentToCatDoc(HttpPostedFileBase httpPostedFileBase);
+        CatDocument PostedDocumentToCatDoc(HttpPostedFile httpPostedFile);
       //  FileContentResult BytesToDocument(byte[] byteMass);
     }
 }

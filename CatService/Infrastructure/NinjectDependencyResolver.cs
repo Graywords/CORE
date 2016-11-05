@@ -35,6 +35,7 @@ namespace CatService.Infrastructure
 			kernel.Bind<ICatUserService>().To<CatUserService>();
 			kernel.Bind<ICatRestClient>().To<CatRestClient>();
 			kernel.Bind<ICurrentUserInformationService>().To<UserInformationService>().InSingletonScope();
-        }
+		    kernel.Bind<ICatDocumentService>().To<CatDocumentService>();
+		}
 	}
 }

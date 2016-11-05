@@ -10,16 +10,16 @@ using CatService.BL.Models;
 
 namespace CatService.BL.Infrastructure.CatExtensionsTools
 {
-    class CatDocumentTools : ICatDocumentTools
+    public class CatDocumentTools : ICatDocumentTools
     {
-        public CatDocument PostedDocumentToCatDoc(HttpPostedFileBase httpPostedFileBase)
+        public CatDocument PostedDocumentToCatDoc(HttpPostedFile httpPostedFile)
         {
             CatDocument result = new CatDocument();
-            result.MimeType = httpPostedFileBase.ContentType;
-            result.DocumentName = httpPostedFileBase.FileName;
-            using (var binaryReader = new BinaryReader(httpPostedFileBase.InputStream))
+            result.MimeType = httpPostedFile.ContentType;
+            result.DocumentName = httpPostedFile.FileName;
+            using (var binaryReader = new BinaryReader(httpPostedFile.InputStream))
             {
-                result.DocFile = binaryReader.ReadBytes(httpPostedFileBase.ContentLength);
+                result.DocFile = binaryReader.ReadBytes(httpPostedFile.ContentLength);
             }
             return result;
         }

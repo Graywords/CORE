@@ -239,7 +239,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ApiCatAuthorizationFilterAttribute.cs" />
-    <Compile Include="Infrastructure\CatDocumentStore.cs" />
     <Compile Include="Infrastructure\CatUserStore.cs" />
     <Compile Include="Infrastructure\Interfaces\ICurrentUserInformationServiceGet.cs" />
     <Compile Include="Infrastructure\Interfaces\ICurrentUserInformationServiceSet.cs" />
