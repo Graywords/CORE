@@ -14,10 +14,9 @@ namespace CatService.Api.Tests.UserManagmentTests
     [TestClass]
     public class DocumentUploadTest: BaseTestClass
     {
-        private string Id;
+        [TestMethod]
         public void ShouldUploadDocument()
         {
-            //const string newPassword = "NewP@ssw0rd";
             var c = Kernel.Get<ICatServiceTestClient>();
             c.Login("Mega Mega1111111111", "Everlight21!");
             var result = c.AddDocument("myfile.pdf", "application/pdf", new byte[1024]);

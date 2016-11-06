@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.BL.Models;
 using Newtonsoft.Json;
 
 namespace CatService.BL.HttpClientWrapper
@@ -39,7 +40,10 @@ namespace CatService.BL.HttpClientWrapper
 
 					requestMessage.Content = result.GetContent();
 
-					requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				    if (parms is MultipartFormDataContent)
+				        requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/pdf"));
+                    else
+                        requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 					if (!string.IsNullOrWhiteSpace(this._token))
 						requestMessage.Headers.TryAddWithoutValidation("Authorization", "Bearer " + this._token);
