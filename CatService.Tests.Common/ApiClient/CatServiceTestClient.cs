@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.Tests.Common.ApiClient.Interfaces;
 using CatService.Tests.Common.Infrastructure;
@@ -62,6 +64,17 @@ namespace CatService.Tests.Common.ApiClient
             var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestChangePassword, HttpMethod.Post, content);
 
             return reg != null && reg.Success;
+        }
+
+	    
+	    public bool AddDocument(string filename, string mimeType, byte[] fileData)
+	    {
+            var content = new MultipartFormDataContent();
+            var fileContent = new ByteArrayContent(fileData);
+            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
+            content.Add(fileContent,"document", filename);
+            var res = _catRestClient.MakeApiRequest(Constants.Constants.RequestAddDocument, HttpMethod.Post, content);
+            return res != null && res.Success;
         }
 	}
 }

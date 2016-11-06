@@ -8,9 +8,12 @@ namespace CatService.Tests.Common.Constants
 	    public const string Register = "api/Account/register";
 	    public const string ChangePassword = "api/Account/ChangePassword";
 
+        public  const string AddDocument = "api/Document/AddDocument";
+
 
         public static string RequestToken = Endpoint + Token;
 	    public static string RequestRegister = Endpoint + Register;
 	    public static string RequestChangePassword = Endpoint + ChangePassword;
+	    public static string RequestAddDocument = Endpoint + AddDocument;
 	}
 }

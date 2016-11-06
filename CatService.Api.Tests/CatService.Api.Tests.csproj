@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManagmentTests\ChangePasswordTest.cs" />
+    <Compile Include="UserManagmentTests\DocumentUploadTest.cs" />
     <Compile Include="UserManagmentTests\LoginTest.cs" />
     <Compile Include="UserManagmentTests\RegisterTest.cs" />
     <Compile Include="UserManagmentTests\UserManagmentFlowTest.cs" />

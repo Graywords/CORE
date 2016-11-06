@@ -13,8 +13,14 @@ namespace CatService.BL.Tests.CatDocumentTest
         {
             Id = "qwertyuiop",
             DocumentName = "TestCatDoc",
-            MimeType = "application/pdf"
+            MimeType = "application/pdf",
+            DocFile = new byte[1024]
 
         };
+
+        public void ShouldSaveDocument()
+        {
+            var couchDbContextService = Kernel.Get<ICatDocumentService>();
+        }
     }
 }
