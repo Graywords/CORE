@@ -16,6 +16,8 @@ namespace CatService.BL.Models
         public string MimeType { get; set; }
 
         public DateTime CreateDateTime { get; set; }
-        
+
+        public string CreatedUserId { get; set; }
+
     }
 }

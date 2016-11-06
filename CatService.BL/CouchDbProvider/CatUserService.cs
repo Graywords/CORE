@@ -17,11 +17,11 @@ namespace CatService.BL.CouchDbProvider
 			this.catRestClient = catRestClient;
 		}
 
-		public string GetCouchUuid()
+		/*public string GetCouchUuid()
 		{
 			var u = catRestClient.MakeApiRequest<CouchUuid>(CouchDbConstants.UuidsRequest, HttpMethod.Get, null);
 			return u.Identifiers[0];
-		}
+		}*/
 
 		public void CreateCatUser(CatUser catUser)
 		{

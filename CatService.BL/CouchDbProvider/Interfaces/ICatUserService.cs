@@ -4,7 +4,7 @@ namespace CatService.BL.CouchDbProvider.Interfaces
 {
 	public interface ICatUserService
 	{
-		string GetCouchUuid();
+		//string GetCouchUuid();
 		void CreateCatUser(CatUser catUser);
 		void UpdateCatUser(CatUser catUser);
 		CatUser FindCatUserById(string userId);

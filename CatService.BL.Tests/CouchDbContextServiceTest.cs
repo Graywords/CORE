@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
 using CatService.BL.Models;
 using CatService.Tests.Common.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,7 +19,7 @@ namespace CatService.ApiTests
 		[TestMethod]
 		public void ShouldGetNewUuid()
 		{
-			var couchDbContextService = Kernel.Get<ICatUserService>();
+			var couchDbContextService = Kernel.Get<ICatSupportTools>();
 
 			var uuid = couchDbContextService.GetCouchUuid();
 
@@ -31,7 +32,7 @@ namespace CatService.ApiTests
 			var catRestSubstitute = Substitute.For<ICatRestClient>();
 			catRestSubstitute.MakeApiRequest<CouchUuid>(Arg.Any<string>(), HttpMethod.Get, Arg.Any<object>()).Returns(JsonConvert.DeserializeObject<CouchUuid>(UuidJson));
 			Kernel.Rebind<ICatRestClient>().ToConstant(catRestSubstitute);
-			var couchDbContextService = Kernel.Get<ICatUserService>();
+			var couchDbContextService = Kernel.Get<ICatSupportTools>();
 
 			var uuid = couchDbContextService.GetCouchUuid();
 
