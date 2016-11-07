@@ -51,9 +51,9 @@ namespace CatService.BL.HttpClientWrapper
 					if (!string.IsNullOrWhiteSpace(revision))
 						requestMessage.Headers.IfMatch.Add((new EntityTagHeaderValue(revision)));
 
-					HttpResponseMessage responseMessage = client.SendAsync(requestMessage, CancellationToken.None).Result;
+                    HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, CancellationToken.None).ConfigureAwait(false);
 
-					await result.SetResponseAsync(responseMessage);
+                    await result.SetResponseAsync(responseMessage);
 				}
 				catch (Exception ex)
 				{

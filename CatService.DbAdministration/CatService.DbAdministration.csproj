@@ -63,6 +63,7 @@
     <Compile Include="Models\CouchView.cs" />
     <Compile Include="Models\ViewFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\CatDocumentsView.cs" />
     <Compile Include="Views\CatUserViews.cs" />
   </ItemGroup>
   <ItemGroup>

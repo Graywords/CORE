@@ -2,6 +2,8 @@
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.HttpClientWrapper;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.BL.Infrastructure.CatExtensionsTools;
+using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
 using CatService.Tests.Common.ApiClient;
 using CatService.Tests.Common.ApiClient.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,6 +35,8 @@ namespace CatService.Tests.Common.Infrastructure
 			this.Kernel.Bind<ICatRestClient>().To<CatRestClient>();
 			this.Kernel.Bind<ICatUserService>().To<CatUserService>();
 			this.Kernel.Bind<ICatServiceTestClient>().To<CatServiceTestClient>();
+		    this.Kernel.Bind<ICatDocumentService>().To<CatDocumentService>();
+		    this.Kernel.Bind<ICatSupportTools>().To<CatSupportTools>();
 		}
 	}
 }

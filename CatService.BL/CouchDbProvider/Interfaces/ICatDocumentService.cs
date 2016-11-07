@@ -14,5 +14,9 @@ namespace CatService.BL.CouchDbProvider.Interfaces
         CatDocument FindDocumentById(string Id);
 
         void DeleteCatDocument(CatDocument catDocument);
+
+        List<CatDocument> FindCatDocumentsByUserId(string userId);
+
+
     }
 }
