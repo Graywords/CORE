@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using CatService.BL.Constants;
 using CatService.BL.CouchDbProvider.Interfaces;
@@ -14,19 +12,18 @@ namespace CatService.BL.CouchDbProvider
     public class CatDocumentService : ICatDocumentService
     {
         private readonly ICatRestClient _catRestClient;
-        private readonly ICatSupportTools _catSupportTools;
+        private readonly ICatSupportToolsService catSupportToolsService;
 
-        public CatDocumentService(ICatRestClient catRestClient, ICatSupportTools catSupportTools)
+        public CatDocumentService(ICatRestClient catRestClient, ICatSupportToolsService catSupportToolsService)
         {
             this._catRestClient = catRestClient;
-            this._catSupportTools = catSupportTools;
+            this.catSupportToolsService = catSupportToolsService;
         }
 
 
-        public void SaveDocument(CatDocument catDocument)
+        public void SaveNewDocument(CatDocument catDocument)
         {
-            catDocument.CreatedUserId = 
-            catDocument.Id = _catSupportTools.GetCouchUuid();
+            catDocument.Id = this.catSupportToolsService.GetCouchUuid();
             catDocument.CreateDateTime = DateTime.UtcNow;
             var r = _catRestClient.MakeApiRequest<CouchDbResponseModel>(CouchDbConstants.CatDocumentDbRequest, HttpMethod.Post, catDocument);
             if (!r.Ok)

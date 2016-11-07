@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using CatService.BL.Constants;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
@@ -11,10 +6,10 @@ using CatService.BL.Models;
 
 namespace CatService.BL.Infrastructure.CatExtensionsTools
 {
-    public class CatSupportTools : ICatSupportTools
+    public class CatSupportToolsService : ICatSupportToolsService
     {
         private readonly ICatRestClient catRestClient;
-        public CatSupportTools(ICatRestClient catRestClient)
+		public CatSupportToolsService(ICatRestClient catRestClient)
         {
             this.catRestClient = catRestClient;
         }
