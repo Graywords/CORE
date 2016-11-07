@@ -1,4 +1,5 @@
 ﻿using CatService.BL.Models;
+using CatService.Models;
 using MultipartDataMediaFormatter.Infrastructure;
 
 namespace CatService.Mappings
@@ -14,5 +15,12 @@ namespace CatService.Mappings
 			result.CreatedUserId = createdUserId;
 			return result;
 		}
+
+	    public static CatDocumentViewModel Map(this CatDocument catDocument)
+	    {
+            CatDocumentViewModel catDocumentViewModel = new CatDocumentViewModel();
+
+	        return catDocumentViewModel;
+	    }
 	}
 }
