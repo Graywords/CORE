@@ -36,7 +36,7 @@ namespace CatService.Tests.Common.Infrastructure
 			this.Kernel.Bind<ICatUserService>().To<CatUserService>();
 			this.Kernel.Bind<ICatServiceTestClient>().To<CatServiceTestClient>();
 		    this.Kernel.Bind<ICatDocumentService>().To<CatDocumentService>();
-		    this.Kernel.Bind<ICatSupportTools>().To<CatSupportTools>();
-		}
+            this.Kernel.Bind<ICatSupportToolsService>().To<CatSupportToolsService>();
+        }
 	}
 }

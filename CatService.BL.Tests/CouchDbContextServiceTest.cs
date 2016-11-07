@@ -19,7 +19,7 @@ namespace CatService.ApiTests
 		[TestMethod]
 		public void ShouldGetNewUuid()
 		{
-			var couchDbContextService = Kernel.Get<ICatSupportTools>();
+			var couchDbContextService = Kernel.Get<ICatSupportToolsService>();
 
 			var uuid = couchDbContextService.GetCouchUuid();
 
@@ -32,7 +32,7 @@ namespace CatService.ApiTests
 			var catRestSubstitute = Substitute.For<ICatRestClient>();
 			catRestSubstitute.MakeApiRequest<CouchUuid>(Arg.Any<string>(), HttpMethod.Get, Arg.Any<object>()).Returns(JsonConvert.DeserializeObject<CouchUuid>(UuidJson));
 			Kernel.Rebind<ICatRestClient>().ToConstant(catRestSubstitute);
-			var couchDbContextService = Kernel.Get<ICatSupportTools>();
+			var couchDbContextService = Kernel.Get<ICatSupportToolsService>();
 
 			var uuid = couchDbContextService.GetCouchUuid();
 

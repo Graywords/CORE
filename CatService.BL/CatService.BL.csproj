@@ -53,10 +53,8 @@
     <Compile Include="HttpClientWrapper\CatRestClient.cs" />
     <Compile Include="HttpClientWrapper\Interfaces\ICatRestClient.cs" />
     <Compile Include="HttpClientWrapper\Interfaces\ITokenAuth.cs" />
-    <Compile Include="Infrastructure\CatExtensionsTools\CatDocumentTools.cs" />
-    <Compile Include="Infrastructure\CatExtensionsTools\CatSupportTools.cs" />
-    <Compile Include="Infrastructure\CatExtensionsTools\Interfaces\ICatDocumentTools.cs" />
-    <Compile Include="Infrastructure\CatExtensionsTools\Interfaces\ICatSupportTools.cs" />
+    <Compile Include="Infrastructure\CatExtensionsTools\CatSupportToolsService.cs" />
+    <Compile Include="Infrastructure\CatExtensionsTools\Interfaces\ICatSupportToolsService.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CatDocument.cs" />
     <Compile Include="Models\CatUser.cs" />

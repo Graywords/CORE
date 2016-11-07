@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using CatService.BL.CouchDbProvider;
+﻿using System.Web.Http;
 using CatService.BL.CouchDbProvider.Interfaces;
-using CatService.BL.Infrastructure.CatExtensionsTools;
 using CatService.BL.Models;
 using CatService.Infrastructure.Interfaces;
+using CatService.Mappings;
+using MultipartDataMediaFormatter.Infrastructure;
 
 
 namespace CatService.Controllers
@@ -16,25 +12,20 @@ namespace CatService.Controllers
     public class DocumentController : ApiController
     {
         private readonly ICatDocumentService _catDocumentService;
-        private readonly CatDocumentTools _catDocumentTools;
         private readonly ICurrentUserInformationService _userInformationService;
 
         public DocumentController(ICatDocumentService catDocumentService, ICurrentUserInformationService currentUserInformationService)
         {
-            this._catDocumentTools = new CatDocumentTools();
             this._catDocumentService = catDocumentService;
             this._userInformationService = currentUserInformationService;
         }
 
         [Authorize]
-        public IHttpActionResult AddDocument()
+        public IHttpActionResult AddDocument(FormData f)
         {
-            HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
-            CatDocument catDocument = new CatDocument();
-            catDocument = _catDocumentTools.PostedDocumentToCatDoc(postedFile);
-            catDocument.CreatedUserId = _userInformationService.GetUserId();
-            _catDocumentService.SaveDocument(catDocument);
-
+            HttpFile postedFile = f.Files[0].Value;
+	        CatDocument catDocument = postedFile.Map(_userInformationService.GetUserId());
+            _catDocumentService.SaveNewDocument(catDocument);
             return Ok();
         }
     }

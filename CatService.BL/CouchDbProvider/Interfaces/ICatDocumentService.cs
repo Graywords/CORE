@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CatService.BL.Models;
+﻿using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider.Interfaces
 {
     public interface ICatDocumentService
     {
-        void SaveDocument(CatDocument catDocument);
+        void SaveNewDocument(CatDocument catDocument);
 
         CatDocument FindDocumentById(string Id);
 

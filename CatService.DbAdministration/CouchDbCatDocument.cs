@@ -11,17 +11,17 @@ using Ninject;
 
 namespace CatService.DbAdministration
 {
-    [TestClass]
-     public class CouchDbCatDocument : BaseTestClass
-    {
+	[TestClass]
+	public class CouchDbCatDocument : BaseTestClass
+	{
 
-        [Ignore]       
-        [TestMethod]
-        public void CreateCatDocumentDatabase()
-        {
-            var c = Kernel.Get<ICatRestClient>();
+		[Ignore]
+		[TestMethod]
+		public void CreateCatDocumentDatabase()
+		{
+			var c = Kernel.Get<ICatRestClient>();
 
-            var apiResult = c.MakeApiRequest(CouchDbConstants.CatDocumentDbRequest, HttpMethod.Put, null);
+			var apiResult = c.MakeApiRequest(CouchDbConstants.CatDocumentDbRequest, HttpMethod.Put, null);
 
             Assert.IsTrue(apiResult.Success);
         }
