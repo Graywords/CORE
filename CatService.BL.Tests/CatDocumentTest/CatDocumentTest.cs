@@ -24,7 +24,7 @@ namespace CatService.BL.Tests.CatDocumentTest
         public void ShouldSaveDocument()
         {
             var couchDbContextService = Kernel.Get<ICatDocumentService>();
-            couchDbContextService.SaveDocument(_catDocument);
+            couchDbContextService.SaveNewDocument(_catDocument);
 
             var doc = couchDbContextService.FindDocumentById(_catDocument.Id);
            
@@ -44,8 +44,8 @@ namespace CatService.BL.Tests.CatDocumentTest
         {
             var couchDbContextService = Kernel.Get<ICatDocumentService>();
             Assert.IsNull(couchDbContextService.FindCatDocumentsByUserId(_catDocument.CreatedUserId));
-            couchDbContextService.SaveDocument(_catDocument);
-            couchDbContextService.SaveDocument(new CatDocument() {CreatedUserId = _catDocument.CreatedUserId});
+            couchDbContextService.SaveNewDocument(_catDocument);
+            couchDbContextService.SaveNewDocument(new CatDocument() {CreatedUserId = _catDocument.CreatedUserId});
 
             var doc = couchDbContextService.FindCatDocumentsByUserId(_catDocument.CreatedUserId);
             Assert.IsNotNull(doc);

@@ -1,4 +1,5 @@
-﻿using CatService.BL.Models;
+﻿using System.Collections.Generic;
+using CatService.BL.Models;
 
 namespace CatService.BL.CouchDbProvider.Interfaces
 {
