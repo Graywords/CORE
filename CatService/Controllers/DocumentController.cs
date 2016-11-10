@@ -44,6 +44,13 @@ namespace CatService.Controllers
         {
             return _catDocumentService.FindDocumentById(Id).Map();
         }
+
+        [Authorize]
+        public HttpFile GetPdfFile(string Id)
+        {
+
+        }
+
         [Authorize]
         public List<CatDocumentViewModel> GetDocumentsByUser(string userId)
         {
