@@ -19,5 +19,10 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools
             var u = catRestClient.MakeApiRequest<CouchUuid>(CouchDbConstants.UuidsRequest, HttpMethod.Get, null);
             return u.Identifiers[0];
         }
+
+        public CatDocument GetHtml(string url)
+        {
+            return catRestClient.MakeApiRequest<CatDocument>(url, HttpMethod.Post, null);
+        }
     }
 }

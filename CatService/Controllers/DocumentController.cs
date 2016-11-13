@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using CatService.BL.CouchDbProvider.Interfaces;
+using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
 using CatService.BL.Models;
 using CatService.Infrastructure.Interfaces;
 using CatService.Mappings;
@@ -15,11 +16,14 @@ namespace CatService.Controllers
     {
         private readonly ICatDocumentService _catDocumentService;
         private readonly ICurrentUserInformationService _userInformationService;
-
-        public DocumentController(ICatDocumentService catDocumentService, ICurrentUserInformationService currentUserInformationService)
+        private readonly IPdfGenerationService _pdfGenerationService;
+        private readonly ICatSupportToolsService _catSupportToolsService;
+        public DocumentController(ICatDocumentService catDocumentService, ICurrentUserInformationService currentUserInformationService, IPdfGenerationService pdfGenerationService, ICatSupportToolsService catSupportToolsService)
         {
             this._catDocumentService = catDocumentService;
             this._userInformationService = currentUserInformationService;
+            this._pdfGenerationService = pdfGenerationService;
+            _catSupportToolsService = catSupportToolsService;
         }
 
         [Authorize]
@@ -48,6 +52,27 @@ namespace CatService.Controllers
         [Authorize]
         public HttpFile GetPdfFile(string Id)
         {
+
+        }
+
+        [Authorize]
+        public IHttpActionResult SaveHtmlFile(string url)
+        {
+            var doc = _catSupportToolsService.GetHtml(url);
+            _catDocumentService.SaveNewDocument(doc);
+            var pdf = _pdfGenerationService.GeneratePdf(doc);
+            HttpFile file = new HttpFile() {};
+            _catDocumentService.SaveNewDocument(pdf);
+            return Ok();
+        }
+
+        [Authorize]
+        public IHttpActionResult SavePdfFile(string url)
+        {
+            _pdfGenerationService.GeneratePdf(url);
+            r
+
+
 
         }
 
