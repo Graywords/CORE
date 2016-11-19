@@ -7,8 +7,7 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools.Interfaces
     {
         string GetCouchUuid();
 
-        CatDocument GetHtml(string url)
-        {
-        }
+        CatDocument GetHtml(string url);
+
     }
 }

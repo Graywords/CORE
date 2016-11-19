@@ -39,6 +39,7 @@ namespace CatService.Infrastructure
 			kernel.Bind<ICurrentUserInformationService>().To<UserInformationService>().InSingletonScope();
 		    kernel.Bind<ICatDocumentService>().To<CatDocumentService>();
 			kernel.Bind<ICatSupportToolsService>().To<CatSupportToolsService>();
+		    kernel.Bind<IPdfGenerationService>().To<PdfGenerationService>();
 		}
 	}
 }

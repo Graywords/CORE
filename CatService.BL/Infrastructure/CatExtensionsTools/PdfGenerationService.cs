@@ -7,12 +7,14 @@ using System.Web.Mvc;
 using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
 using CatService.BL.Models;
 using TuesPechkin;
+using System.Drawing;
+
 
 namespace CatService.BL.Infrastructure.CatExtensionsTools
 {
     public class PdfGenerationService : IPdfGenerationService
     {
-        public void GeneratePdf(CatDocument catDocument)
+        public CatDocument GeneratePdf(CatDocument catDocument)
         {
             var document = new HtmlToPdfDocument
             {
@@ -21,7 +23,8 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools
                     
         ProduceOutline = true,
         DocumentTitle = catDocument.DocumentName,
-        //PaperSize = new PechkinPaperSize() PaperKind.A4, // Implicit conversion to PechkinPaperSize
+        //PaperSize = PaperKind.A4, // Implicit conversion to PechkinPaperSize
+        //PaperSize = new PechkinPaperSize();
         Margins =
         {
             All = 1.375,
@@ -29,12 +32,15 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools
         }
     },
                 Objects = {
-        new ObjectSettings { HtmlText = catDocument.DocFile.ToString() },
-        new ObjectSettings { PageUrl = "" }
+        new ObjectSettings { HtmlText = Encoding.Unicode.GetString(catDocument.DocFile), }
+        //new ObjectSettings { PageUrl = "https://www.tut.by" }
     }
             };
             IConverter converter = new ThreadSafeConverter(new RemotingToolset<PdfToolset>(new WinAnyCPUEmbeddedDeployment(new TempFolderDeployment())));
             var c = converter.Convert(document);
+            catDocument.DocFile = c;
+            catDocument.MimeType = "application/pdf";
+            return catDocument;
 
         }
 

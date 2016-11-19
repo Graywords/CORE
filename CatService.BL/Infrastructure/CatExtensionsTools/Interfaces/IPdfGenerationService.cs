@@ -10,7 +10,7 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools.Interfaces
 {
      public interface IPdfGenerationService
      {
-         void GeneratePdf(CatDocument catDocument);
+         CatDocument GeneratePdf(CatDocument catDocument);
          void GeneratePdf(string url);
 
      }

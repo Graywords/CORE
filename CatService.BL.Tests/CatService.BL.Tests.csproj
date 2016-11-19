@@ -65,6 +65,7 @@
     <Compile Include="CatUserTests\CatUserTest.cs" />
     <Compile Include="CouchDbContextServiceTest.cs" />
     <Compile Include="HttpClentWrapperTest.cs" />
+    <Compile Include="PdfGenerationTest\PdfGenerationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

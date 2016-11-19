@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Mvc;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
 using CatService.BL.Models;
@@ -11,7 +12,8 @@ using MultipartDataMediaFormatter.Infrastructure;
 
 namespace CatService.Controllers
 {
-    [RoutePrefix("api/Document")]
+    [System.Web.Http.Authorize]
+    [System.Web.Http.RoutePrefix("api/Document")]
     public class DocumentController : ApiController
     {
         private readonly ICatDocumentService _catDocumentService;
@@ -26,7 +28,8 @@ namespace CatService.Controllers
             _catSupportToolsService = catSupportToolsService;
         }
 
-        [Authorize]
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("AddDocument")]
         public IHttpActionResult AddDocument(FormData f)
         {
             HttpFile postedFile = f.Files[0].Value;
@@ -35,48 +38,50 @@ namespace CatService.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("DeleteDocument")]
         public IHttpActionResult DeleteDocument(string id)
         {
             CatDocument catDocument = _catDocumentService.FindDocumentById(id);
             _catDocumentService.DeleteCatDocument(catDocument);
             return Ok();
         }
-
-        [Authorize]
-        public CatDocumentViewModel GetDocument(string Id)
+        
+        /*public CatDocumentViewModel GetDocument(string Id)
         {
             return _catDocumentService.FindDocumentById(Id).Map();
-        }
+        }*/
 
-        [Authorize]
-        public HttpFile GetPdfFile(string Id)
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("GetPdfFile")]
+        public FileResult GetPdfFile(string Id)
         {
+            var converted = _pdfGenerationService.GeneratePdf(_catDocumentService.FindDocumentById(Id));
+            return new FileContentResult(converted.DocFile,converted.MimeType);
+
 
         }
-
-        [Authorize]
+        
+        [System.Web.Http.Route("SaveHtml")]
+        [System.Web.Http.Authorize]
         public IHttpActionResult SaveHtmlFile(string url)
         {
             var doc = _catSupportToolsService.GetHtml(url);
             _catDocumentService.SaveNewDocument(doc);
-            var pdf = _pdfGenerationService.GeneratePdf(doc);
-            HttpFile file = new HttpFile() {};
-            _catDocumentService.SaveNewDocument(pdf);
+          //  var pdf = _pdfGenerationService.GeneratePdf(doc);
+           // HttpFile file = new HttpFile() {};
+            //_catDocumentService.SaveNewDocument(pdf);
             return Ok();
         }
 
-        [Authorize]
-        public IHttpActionResult SavePdfFile(string url)
+        
+        /*public IHttpActionResult SavePdfFile(string url)
         {
             _pdfGenerationService.GeneratePdf(url);
-            r
+            return Ok();
+        }*/
 
-
-
-        }
-
-        [Authorize]
+        [System.Web.Http.Authorize]
         public List<CatDocumentViewModel> GetDocumentsByUser(string userId)
         {
             var temp = _catDocumentService.FindCatDocumentsByUserId(userId);

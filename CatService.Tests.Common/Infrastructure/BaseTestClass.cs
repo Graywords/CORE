@@ -37,6 +37,7 @@ namespace CatService.Tests.Common.Infrastructure
 			this.Kernel.Bind<ICatServiceTestClient>().To<CatServiceTestClient>();
 		    this.Kernel.Bind<ICatDocumentService>().To<CatDocumentService>();
             this.Kernel.Bind<ICatSupportToolsService>().To<CatSupportToolsService>();
-        }
+		    this.Kernel.Bind<IPdfGenerationService>().To<PdfGenerationService>();
+		}
 	}
 }
