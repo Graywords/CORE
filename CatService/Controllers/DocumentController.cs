@@ -27,7 +27,7 @@ namespace CatService.Controllers
             _catSupportToolsService = catSupportToolsService;
         }
 
-        [Authorize]
+        [HttpPost]
         [Route("AddDocument")]
         public IHttpActionResult AddDocument(FormData f)
         {
@@ -37,7 +37,7 @@ namespace CatService.Controllers
             return Ok();
         }
 
-        [Authorize]
+		[HttpDelete]
         [Route("DeleteDocument")]
         public IHttpActionResult DeleteDocument(string id)
         {
@@ -51,16 +51,16 @@ namespace CatService.Controllers
             return _catDocumentService.FindDocumentById(Id).Map();
         }*/
 
-        [Authorize]
+		[HttpGet]
         [Route("GetPdfFile")]
         public FileResult GetPdfFile(string Id)
         {
             var converted = _pdfGenerationService.GeneratePdf(_catDocumentService.FindDocumentById(Id));
             return new FileResult(converted.DocFile,converted.MimeType, converted.DocumentName);
         }
-        
+
+		[HttpPost]
         [Route("SaveHtml")]
-        [Authorize]
         public IHttpActionResult SaveHtmlFile(string url)
         {
             var doc = _catSupportToolsService.GetHtml(url);
@@ -78,7 +78,7 @@ namespace CatService.Controllers
             return Ok();
         }*/
 
-        [Authorize]
+		[HttpGet]
         public List<CatDocumentViewModel> GetDocumentsByUser(string userId)
         {
             var temp = _catDocumentService.FindCatDocumentsByUserId(userId);

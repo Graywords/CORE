@@ -59,7 +59,7 @@ namespace CatService.BL.CouchDbProvider
             var results = _catRestClient.MakeApiRequest<SearchResultsModel<CatDocument>>(query, HttpMethod.Get, null);
             if (results != null && results.Results.Any())
             {
-                List<CatDocument> returnResult = new List<CatDocument>(results.Results.Length);
+	            List<CatDocument> returnResult = new List<CatDocument>(results.Results.Length);
                 
                 foreach (var element in results.Results) returnResult.Add(element.Value);
                 

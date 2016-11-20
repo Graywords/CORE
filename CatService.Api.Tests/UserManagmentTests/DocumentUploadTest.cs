@@ -22,6 +22,16 @@ namespace CatService.Api.Tests.UserManagmentTests
             var result = c.AddDocument("EmptyFileForUserManagementTesting.pdf", "application/pdf", new byte[1024]);
             Assert.IsTrue(result);
         }
+
+		[TestMethod]
+		public void ShouldSaveHtmlFile()
+		{
+			var c = Kernel.Get<ICatServiceTestClient>();
+			c.Login("Mega Mega1111111111", "Everlight21!");
+			var result = c.AddDocument("EmptyFileForUserManagementTesting.pdf", "application/pdf", new byte[1024]);
+			Assert.IsTrue(result);
+		}
+
         [TestCleanup]
         public override void CleanUp()
         {
