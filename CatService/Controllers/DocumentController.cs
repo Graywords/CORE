@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Mvc;
 using CatService.BL.CouchDbProvider.Interfaces;
 using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
 using CatService.BL.Models;
@@ -12,8 +11,8 @@ using MultipartDataMediaFormatter.Infrastructure;
 
 namespace CatService.Controllers
 {
-    [System.Web.Http.Authorize]
-    [System.Web.Http.RoutePrefix("api/Document")]
+    [Authorize]
+    [RoutePrefix("api/Document")]
     public class DocumentController : ApiController
     {
         private readonly ICatDocumentService _catDocumentService;
@@ -28,8 +27,8 @@ namespace CatService.Controllers
             _catSupportToolsService = catSupportToolsService;
         }
 
-        [System.Web.Http.Authorize]
-        [System.Web.Http.Route("AddDocument")]
+        [Authorize]
+        [Route("AddDocument")]
         public IHttpActionResult AddDocument(FormData f)
         {
             HttpFile postedFile = f.Files[0].Value;
@@ -38,8 +37,8 @@ namespace CatService.Controllers
             return Ok();
         }
 
-        [System.Web.Http.Authorize]
-        [System.Web.Http.Route("DeleteDocument")]
+        [Authorize]
+        [Route("DeleteDocument")]
         public IHttpActionResult DeleteDocument(string id)
         {
             CatDocument catDocument = _catDocumentService.FindDocumentById(id);
@@ -52,18 +51,16 @@ namespace CatService.Controllers
             return _catDocumentService.FindDocumentById(Id).Map();
         }*/
 
-        [System.Web.Http.Authorize]
-        [System.Web.Http.Route("GetPdfFile")]
+        [Authorize]
+        [Route("GetPdfFile")]
         public FileResult GetPdfFile(string Id)
         {
             var converted = _pdfGenerationService.GeneratePdf(_catDocumentService.FindDocumentById(Id));
-            return new FileContentResult(converted.DocFile,converted.MimeType);
-
-
+            return new FileResult(converted.DocFile,converted.MimeType, converted.DocumentName);
         }
         
-        [System.Web.Http.Route("SaveHtml")]
-        [System.Web.Http.Authorize]
+        [Route("SaveHtml")]
+        [Authorize]
         public IHttpActionResult SaveHtmlFile(string url)
         {
             var doc = _catSupportToolsService.GetHtml(url);
@@ -81,7 +78,7 @@ namespace CatService.Controllers
             return Ok();
         }*/
 
-        [System.Web.Http.Authorize]
+        [Authorize]
         public List<CatDocumentViewModel> GetDocumentsByUser(string userId)
         {
             var temp = _catDocumentService.FindCatDocumentsByUserId(userId);
