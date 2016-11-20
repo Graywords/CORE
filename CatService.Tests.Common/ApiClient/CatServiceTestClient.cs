@@ -76,5 +76,11 @@ namespace CatService.Tests.Common.ApiClient
             var res = _catRestClient.MakeApiRequest(Constants.Constants.RequestAddDocument, HttpMethod.Post, content);
             return res != null && res.Success;
         }
+
+		public bool SavePageDocument(string url)
+		{
+			var res = _catRestClient.MakeApiRequest(Constants.Constants.RequestSavePageDocument, HttpMethod.Post, url);
+			return res != null && res.Success;
+		}
 	}
 }

@@ -61,10 +61,10 @@ namespace CatService.Controllers
 
 		[HttpPost]
         [Route("SaveHtml")]
-        public IHttpActionResult SaveHtmlFile(string url)
+        public IHttpActionResult SaveHtmlFile([FromBody]string url)
         {
-            var doc = _catSupportToolsService.GetHtml(url);
-            _catDocumentService.SaveNewDocument(doc);
+            //var doc = _catSupportToolsService.GetHtml(url);
+           // _catDocumentService.SaveNewDocument(doc);
           //  var pdf = _pdfGenerationService.GeneratePdf(doc);
            // HttpFile file = new HttpFile() {};
             //_catDocumentService.SaveNewDocument(pdf);

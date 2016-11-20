@@ -28,7 +28,7 @@ namespace CatService.Api.Tests.UserManagmentTests
 		{
 			var c = Kernel.Get<ICatServiceTestClient>();
 			c.Login("Mega Mega1111111111", "Everlight21!");
-			var result = c.AddDocument("EmptyFileForUserManagementTesting.pdf", "application/pdf", new byte[1024]);
+			var result = c.SavePageDocument("test url");
 			Assert.IsTrue(result);
 		}
 
