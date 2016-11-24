@@ -57,6 +57,10 @@
       <Project>{29FFC8A0-4542-495F-95A5-BBF91B22EC98}</Project>
       <Name>CatService.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CatService\CatService.csproj">
+      <Project>{D4A0A408-8E0E-4E63-B1F0-4B96209FBDA7}</Project>
+      <Name>CatService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

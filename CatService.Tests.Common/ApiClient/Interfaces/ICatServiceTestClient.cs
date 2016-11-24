@@ -1,4 +1,7 @@
 ﻿
+using CatService.BL.HttpClientWrapper;
+using CatService.Models;
+
 namespace CatService.Tests.Common.ApiClient.Interfaces
 {
 	public interface ICatServiceTestClient
@@ -8,5 +11,7 @@ namespace CatService.Tests.Common.ApiClient.Interfaces
 	    bool ChangePassword(string oldPassword, string newPassword, string confirmPassword);
 	    bool AddDocument(string filename,string mimetype, byte[] fileData);
 		bool SavePageDocument(string url);
+		ApiResponse GetPdfFile(string id);
+		CatDocumentViewModel[] GetDocuments();
 	}
 }

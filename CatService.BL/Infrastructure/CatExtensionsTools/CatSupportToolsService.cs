@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using CatService.BL.Constants;
 using CatService.BL.HttpClientWrapper.Interfaces;
 using CatService.BL.Infrastructure.CatExtensionsTools.Interfaces;
@@ -22,7 +23,17 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools
 
         public CatDocument GetHtml(string url)
         {
-            return catRestClient.MakeApiRequest<CatDocument>(url, HttpMethod.Post, null);
+	        var siteResponse = catRestClient.MakeApiRequest(url, HttpMethod.Get, null);
+	        if (!siteResponse.Success)
+		        return null;
+
+	        return new CatDocument
+			{
+				CreateDateTime = DateTime.UtcNow,
+				DocFile = siteResponse.RawBytes,
+				DocumentName = "temp.html",
+				MimeType = "application/html"
+			};
         }
     }
 }

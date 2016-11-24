@@ -16,11 +16,14 @@ namespace CatService.Mappings
 			return result;
 		}
 
-	    public static CatDocumentViewModel Map(this CatDocument catDocument)
-	    {
-            CatDocumentViewModel catDocumentViewModel = new CatDocumentViewModel();
+		public static CatDocumentViewModel Map(this CatDocument catDocument)
+		{
+			CatDocumentViewModel catDocumentViewModel = new CatDocumentViewModel();
 
-	        return catDocumentViewModel;
-	    }
+			catDocumentViewModel.Id = catDocument.Id;
+			catDocumentViewModel.Name = catDocument.DocumentName;
+
+			return catDocumentViewModel;
+		}
 	}
 }

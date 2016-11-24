@@ -49,7 +49,7 @@ namespace CatService.BL.CouchDbProvider
             _catRestClient.MakeApiRequest(CouchDbConstants.CatDocumentDbRequest + catDocument.Id, HttpMethod.Delete, null, catDocument.Revision);
         }
 
-        public List<CatDocument> FindCatDocumentsByUserId(string userId)
+        public CatDocument[] FindCatDocumentsByUserId(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
                 return null;
@@ -57,14 +57,8 @@ namespace CatService.BL.CouchDbProvider
             var query = string.Format(CouchDbConstants.SearchByKeyFormat, CouchDbConstants.CatDocumentsViewRequest + CouchDbConstants.ByUserId, userId);
 
             var results = _catRestClient.MakeApiRequest<SearchResultsModel<CatDocument>>(query, HttpMethod.Get, null);
-            if (results != null && results.Results.Any())
-            {
-	            List<CatDocument> returnResult = new List<CatDocument>(results.Results.Length);
-                
-                foreach (var element in results.Results) returnResult.Add(element.Value);
-                
-                return returnResult;
-            }
+	        if (results != null && results.Results.Any())
+		        return results.Results.Select(x => x.Value).ToArray();
 
             return null;
         }

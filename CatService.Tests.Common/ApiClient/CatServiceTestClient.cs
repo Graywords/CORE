@@ -2,7 +2,9 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using CatService.BL.HttpClientWrapper;
 using CatService.BL.HttpClientWrapper.Interfaces;
+using CatService.Models;
 using CatService.Tests.Common.ApiClient.Interfaces;
 using CatService.Tests.Common.Infrastructure;
 
@@ -52,35 +54,45 @@ namespace CatService.Tests.Common.ApiClient
 			return reg != null && reg.Success;
 		}
 
-	    public bool ChangePassword(string oldPassword, string newPassword, string confirmPassword)
-	    {
-            var p = new Dictionary<string, string>
+		public bool ChangePassword(string oldPassword, string newPassword, string confirmPassword)
+		{
+			var p = new Dictionary<string, string>
             {
                 {"OldPassword", oldPassword},
                 {"NewPassword", newPassword},
                 {"ConfirmPassword", confirmPassword }
             };
-            var content = new FormUrlEncodedContent(p);
-            var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestChangePassword, HttpMethod.Post, content);
+			var content = new FormUrlEncodedContent(p);
+			var reg = _catRestClient.MakeApiRequest(Constants.Constants.RequestChangePassword, HttpMethod.Post, content);
 
-            return reg != null && reg.Success;
-        }
+			return reg != null && reg.Success;
+		}
 
-	    
-	    public bool AddDocument(string filename, string mimeType, byte[] fileData)
-	    {
-            var content = new MultipartFormDataContent();
-            var fileContent = new ByteArrayContent(fileData);
-            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
-            content.Add(fileContent,"document", filename);
-            var res = _catRestClient.MakeApiRequest(Constants.Constants.RequestAddDocument, HttpMethod.Post, content);
-            return res != null && res.Success;
-        }
+
+		public bool AddDocument(string filename, string mimeType, byte[] fileData)
+		{
+			var content = new MultipartFormDataContent();
+			var fileContent = new ByteArrayContent(fileData);
+			fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
+			content.Add(fileContent, "document", filename);
+			var res = _catRestClient.MakeApiRequest(Constants.Constants.RequestAddDocument, HttpMethod.Post, content);
+			return res != null && res.Success;
+		}
 
 		public bool SavePageDocument(string url)
 		{
 			var res = _catRestClient.MakeApiRequest(Constants.Constants.RequestSavePageDocument, HttpMethod.Post, url);
 			return res != null && res.Success;
+		}
+
+		public ApiResponse GetPdfFile(string id)
+		{
+			return _catRestClient.MakeApiRequest(Constants.Constants.RequestGetPdfFile + "?id=" + id, HttpMethod.Get, null);
+		}
+
+		public CatDocumentViewModel[] GetDocuments()
+		{
+			return _catRestClient.MakeApiRequest<CatDocumentViewModel[]>(Constants.Constants.RequestGetDocument, HttpMethod.Get, null);
 		}
 	}
 }

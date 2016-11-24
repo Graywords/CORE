@@ -49,7 +49,7 @@ namespace CatService.BL.Tests.CatDocumentTest
 
             var doc = couchDbContextService.FindCatDocumentsByUserId(_catDocument.CreatedUserId);
             Assert.IsNotNull(doc);
-            Assert.AreEqual(2,doc.Count);
+            Assert.AreEqual(2,doc.Length);
             Assert.AreEqual(DateTime.UtcNow.Date, doc[0].CreateDateTime.Date);
             Assert.AreEqual(DateTime.UtcNow.Date, doc[1].CreateDateTime.Date);
         }
