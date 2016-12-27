@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Net.Http;
 using CatService.BL.Constants;
 using CatService.BL.HttpClientWrapper.Interfaces;
@@ -30,7 +31,7 @@ namespace CatService.BL.Infrastructure.CatExtensionsTools
 	        return new CatDocument
 			{
 				CreateDateTime = DateTime.UtcNow,
-				DocFile = siteResponse.RawBytes,
+				DocFile = Encoding.Unicode.GetBytes(siteResponse.Raw),
 				DocumentName = "temp.html",
 				MimeType = "application/html"
 			};
