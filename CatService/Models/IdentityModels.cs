@@ -22,7 +22,7 @@ namespace CatService.Models
 	    {
 		    if(catUser == null)
 				throw new InvalidOperationException();
-
+            this.
 		    catUser.Email = Email;
 		    catUser.PasswordHash = PasswordHash;
 		    catUser.Name = UserName;
